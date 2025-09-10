@@ -236,30 +236,40 @@ export default function Arena() {
                   key={message.id}
                   className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  <div
-                    className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl ${
-                      message.sender === 'user'
-                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
-                        : 'bg-white/80 text-gray-800 border border-white/40'
-                    }`}
-                  >
-                    {message.sender === 'ai' && message.mbtiType && message.mbtiType !== 'SYSTEM' && (
-                      <div className="flex items-center gap-2 mb-2 pb-2 border-b border-gray-200/50">
-                        <div className={`w-6 h-6 rounded-full bg-gradient-to-r ${getMBTITypeInfo(message.mbtiType)?.color} flex items-center justify-center text-xs`}>
-                          {getMBTITypeInfo(message.mbtiType)?.emoji}
-                        </div>
-                        <span className="text-xs font-mono font-bold text-gray-600">
-                          {message.mbtiType}
-                        </span>
-                        <span className="text-xs text-gray-500">
-                          {getMBTITypeInfo(message.mbtiType)?.name}
-                        </span>
+                  {message.sender === 'ai' ? (
+                    <div className="flex gap-3 max-w-xs lg:max-w-md">
+                      {/* Avatar */}
+                      <div className={`w-10 h-10 rounded-full bg-gradient-to-r ${getMBTITypeInfo(message.mbtiType || '')?.color || 'from-gray-400 to-gray-600'} flex items-center justify-center text-lg font-medium flex-shrink-0`}>
+                        {getMBTITypeInfo(message.mbtiType || '')?.emoji || '🤖'}
                       </div>
-                    )}
-                    <p className="text-sm leading-relaxed whitespace-pre-wrap">
-                      {message.text}
-                    </p>
-                  </div>
+                      
+                      {/* Message bubble */}
+                      <div className="flex flex-col">
+                        {/* Name and MBTI type */}
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-sm font-semibold text-gray-700">
+                            {getMBTITypeInfo(message.mbtiType || '')?.name || 'AI'}
+                          </span>
+                          <span className="text-xs font-mono font-bold text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
+                            {message.mbtiType || 'AI'}
+                          </span>
+                        </div>
+                        
+                        {/* Message content */}
+                        <div className="bg-white/90 text-gray-800 px-4 py-3 rounded-2xl rounded-tl-sm border border-white/40 shadow-sm">
+                          <p className="text-sm leading-relaxed whitespace-pre-wrap">
+                            {message.text}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-3 rounded-2xl max-w-xs lg:max-w-md">
+                      <p className="text-sm leading-relaxed whitespace-pre-wrap">
+                        {message.text}
+                      </p>
+                    </div>
+                  )}
                 </div>
               ))}
               <div ref={messagesEndRef} />
