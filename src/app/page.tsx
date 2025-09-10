@@ -18,7 +18,7 @@ export default function Home() {
       
       {/* Main Content */}
       <div className="flex-1 p-6">
-        <div className="max-w-5xl mx-auto h-full">
+        <div className="max-w-5xl mx-auto">
           <div className="mb-8 text-center">
             <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-2">
               MBTI 沟通对策集
@@ -28,7 +28,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="h-full">
+          <div>
             {activeModule === 'converter' ? (
               <LanguageConverter />
             ) : (

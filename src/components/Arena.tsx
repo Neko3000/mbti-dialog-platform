@@ -172,9 +172,9 @@ export default function Arena() {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 mb-6 border border-white/20 flex items-center justify-between">
+      <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 border border-white/20 flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
             <span>🎭</span>
@@ -192,9 +192,9 @@ export default function Arena() {
       </div>
 
       {/* Messages Container */}
-      <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/20 flex flex-col">
+      <div className="bg-white/60 backdrop-blur-sm rounded-2xl border border-white/20 flex flex-col h-[600px]">
         {/* Messages */}
-        <div className="flex-1 p-4 overflow-y-auto space-y-4 max-h-96">
+        <div className="flex-1 p-4 overflow-y-auto space-y-4">
           {messages.length === 0 ? (
             <div className="flex items-center justify-center h-full text-center">
               <div className="space-y-3">
