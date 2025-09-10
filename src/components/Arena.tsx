@@ -46,8 +46,15 @@ export default function Arena() {
     scrollToBottom();
   }, [messages]);
 
-  const getRandomMBTIType = () => {
-    return mbtiTypes[Math.floor(Math.random() * mbtiTypes.length)];
+  const getRandomMBTIType = (excludeType?: string) => {
+    let availableTypes = mbtiTypes;
+    
+    // If we need to exclude a type, filter it out
+    if (excludeType) {
+      availableTypes = mbtiTypes.filter(type => type.code !== excludeType);
+    }
+    
+    return availableTypes[Math.floor(Math.random() * availableTypes.length)];
   };
 
   const generateAIResponse = async (conversationHistory: Message[]) => {
@@ -59,7 +66,13 @@ export default function Arena() {
     isGeneratingRef.current = true;
     
     try {
-      const randomType = getRandomMBTIType();
+      // Get the last AI message's MBTI type to avoid consecutive duplicates
+      const lastAIMessage = conversationHistory
+        .slice()
+        .reverse()
+        .find(msg => msg.sender === 'ai' && msg.mbtiType);
+      
+      const randomType = getRandomMBTIType(lastAIMessage?.mbtiType);
       
       const response = await fetch('/api/arena', {
         method: 'POST',
