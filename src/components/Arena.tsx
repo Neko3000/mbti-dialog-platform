@@ -252,33 +252,33 @@ export default function Arena() {
                   {message.sender === 'ai' ? (
                     <div className="flex gap-3 max-w-xs lg:max-w-md">
                       {/* Avatar */}
-                      <div className={`w-10 h-10 rounded-full bg-gradient-to-r ${getMBTITypeInfo(message.mbtiType || '')?.color || 'from-gray-400 to-gray-600'} flex items-center justify-center text-lg font-medium flex-shrink-0`}>
+                      <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${getMBTITypeInfo(message.mbtiType || '')?.color || 'from-gray-400 to-gray-600'} flex items-center justify-center text-xl font-medium flex-shrink-0 shadow-lg ring-2 ring-white/50`}>
                         {getMBTITypeInfo(message.mbtiType || '')?.emoji || '🤖'}
                       </div>
                       
                       {/* Message bubble */}
                       <div className="flex flex-col">
                         {/* Name and MBTI type */}
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-sm font-semibold text-gray-700">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-sm font-bold text-gray-800">
                             {getMBTITypeInfo(message.mbtiType || '')?.name || 'AI'}
                           </span>
-                          <span className="text-xs font-mono font-bold text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
+                          <span className={`text-xs font-mono font-bold text-white bg-gradient-to-r ${getMBTITypeInfo(message.mbtiType || '')?.color || 'from-gray-400 to-gray-600'} px-2 py-1 rounded-full shadow-sm`}>
                             {message.mbtiType || 'AI'}
                           </span>
                         </div>
                         
                         {/* Message content */}
-                        <div className="bg-white/90 text-gray-800 px-4 py-3 rounded-2xl rounded-tl-sm border border-white/40 shadow-sm">
-                          <p className="text-sm leading-relaxed whitespace-pre-wrap">
+                        <div className="bg-white/95 backdrop-blur-sm text-gray-800 px-5 py-4 rounded-2xl rounded-tl-md border-2 border-white/50 shadow-lg hover:shadow-xl transition-all duration-300">
+                          <p className="text-sm leading-relaxed whitespace-pre-wrap font-medium">
                             {message.text}
                           </p>
                         </div>
                       </div>
                     </div>
                   ) : (
-                    <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-3 rounded-2xl max-w-xs lg:max-w-md">
-                      <p className="text-sm leading-relaxed whitespace-pre-wrap">
+                    <div className="bg-gradient-to-br from-purple-500 via-purple-600 to-pink-500 text-white px-5 py-4 rounded-2xl rounded-tr-md max-w-xs lg:max-w-md shadow-lg hover:shadow-xl transition-all duration-300 border border-purple-400/30">
+                      <p className="text-sm leading-relaxed whitespace-pre-wrap font-medium">
                         {message.text}
                       </p>
                     </div>
