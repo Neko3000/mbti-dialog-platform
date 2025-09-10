@@ -214,7 +214,7 @@ export default function Arena() {
       </div>
 
       {/* Messages Container */}
-      <div className="bg-white/60 backdrop-blur-sm rounded-2xl border border-white/20 flex flex-col h-[600px]">
+      <div className="bg-white/60 backdrop-blur-sm rounded-2xl border border-white/20 flex flex-col h-[800px]">
         {/* Messages */}
         <div className="flex-1 p-4 overflow-y-auto space-y-4">
           {messages.length === 0 ? (
