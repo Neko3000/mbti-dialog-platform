@@ -124,7 +124,7 @@ export default function Arena() {
   const startAutoResponseTimer = () => {
     clearTimer();
     
-    let countdown = 5;
+    let countdown = 3;
     setNextResponseTimer(countdown);
     
     const countdownInterval = setInterval(() => {
@@ -278,11 +278,16 @@ export default function Arena() {
         </div>
 
         {/* Timer Display */}
-        {nextResponseTimer !== null && (
+        {messages.length > 0 && (
           <div className="px-4 py-2 border-t border-white/20">
             <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
               <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
-              <span>下一条回复将在 {nextResponseTimer} 秒后自动生成</span>
+              <span>
+                {nextResponseTimer !== null 
+                  ? `下一条回复将在 ${nextResponseTimer} 秒后自动生成`
+                  : '正在生成回复...'
+                }
+              </span>
             </div>
           </div>
         )}
