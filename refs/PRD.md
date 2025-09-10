@@ -1,12 +1,12 @@
 
 
-# **MBTI 讲话对策集：产品需求文档 (PRD) V1.1**
+# **MBTI 讲话对策集：产品需求文档 (PRD) V1.2**
 
 ## **文档控制**
 
 | 属性 | 详情 |
 | :---- | :---- |
-| **版本** | 1.1 |
+| **版本** | 1.2 |
 | **状态** | 草案 |
 | **作者** | 高级产品经理 |
 | **最后更新日期** | 2024年5月21日 |
@@ -36,7 +36,7 @@
 
 ### **1.4 成功指标 (KPIs)**
 
-预先定义成功是任何产品发布的基石 6。鉴于本产品 V1.1 是一个纯前端、无用户账户的应用，其成功指标将聚焦于用户参与度和感知价值。
+预先定义成功是任何产品发布的基石 6。鉴于本产品 V1.2 是一个纯前端、无用户账户的应用，其成功指标将聚焦于用户参与度和感知价值。
 
 * **主要指标：**  
   * **转化率 (Transformation Rate):** 定义为“成功的文本转化次数 / 总会话数”。高转化率直接反映了用户对核心功能的积极使用和依赖。  
@@ -97,25 +97,27 @@
   4. **应用输出 (转换后的表达):** “新营销活动提案：目标是在第三季度将用户活跃度提升 15%。计划包含三个明确步骤：1) 投放精准社交媒体广告 (预计 ROI 为 3:1)；2) 举办一场行业专家网络研讨会；3) 实施数据驱动的邮件跟进序列。申请 20 分钟会议，以审阅附件中的详细项目计划和预算。”  
   5. 吴彦祖利用这个结构化的输出，起草了一封逻辑清晰、目标明确的正式提案邮件。
 
-#### **2.2.3 场景 C：在安全的沙盒中练习对话 (竞技场)**
+#### **2.2.3 场景 C：在动态聊天室中体验多种沟通风格 (竞技场)**
 
-* **用户：** 吴彦祖，希望在与一位以辩论为乐的 ENTP 同事进行头脑风暴前，更好地理解其沟通风格 13。  
-* **情境：** 吴彦祖对即将到来的讨论感到有些紧张，她担心自己的想法会被不断挑战，从而无法有效表达。她希望有一个无风险的环境来模拟这种对话。  
+* **用户：** 吴彦祖，希望在与不同风格的团队成员开会前，体验和适应多种沟通视角。  
+* **情境：** 吴彦祖即将主持一个跨部门的头脑风暴会议，与会者性格各异。她希望通过模拟一个动态的讨论环境，来练习如何引导和回应不同类型的观点。  
 * **在应用中的操作流程：**  
   1. 吴彦祖在侧边栏选择“竞技场”模块。  
-  2. 她看到一个聊天界面，并输入了她的话题引导：“关于我们下一季度的营销策略，我有一个初步的想法，主要是围绕提升用户社区的活跃度。”  
-  3. 系统随机选择了一个 MBTI 人格（例如，INTP）开始对话，并立即发出第一条响应。  
-  4. 吴彦祖与 INTP 对话了几轮，然后点击“开始新对话”按钮。  
-  5. 系统这次随机选择了 ENTP。界面提示：“正在与 ENTP 对话”。  
-  6. 吴彦祖再次输入她的引导语。  
-  7. **ENTP (AI) 立即响应：** “‘提升活跃度’这个概念很有趣，但我们能不能先挑战一下这个前提？为什么活跃度本身是我们的目标，而不是副产品？有没有可能存在一个更根本的目标，一旦实现，活跃度会自然而然地提升？”  
-  8. 吴彦祖输入：“这是一个很好的问题。我原先的想法是，更高的活跃度意味着更高的用户粘性。”  
-  9. **ENTP (AI) 在 5 秒后继续：** “我同意粘性很重要，但‘活跃度’这个词太模糊了。我们是在谈论发帖数、评论数，还是在线时长？每种指标都可能导向完全不同的策略。我们来辩论一下：如果我们只关注‘高质量原创内容的数量’，会不会比单纯追求‘活跃度’更有价值？”  
-  10. 吴彦祖继续与 AI 进行对话，感受 ENTP 挑战现状、探索多种可能性的沟通风格 13。这个过程帮助她为真实的会议做好了心理准备，并预先思考了对自己提案的几种潜在挑战。
+  2. 她看到一个聊天界面，并输入了她的话题引导：“关于我们下一季度的营销策略，我有一个初步的想法，主要是围绕提升用户社区的活跃度。” 然后点击发送。  
+  3. **系统立即响应：** 一个随机选择的人格（例如，ENTP）发出第一条消息，消息旁清晰地标注着“ENTP”。  
+  4. **ENTP (AI):** “‘提升活跃度’这个概念很有趣，但我们能不能先挑战一下这个前提？为什么活跃度本身是我们的目标，而不是副产品？”  
+  5. **5秒后，系统自动响应：** 另一个随机选择的人格（例如，ISFJ）加入对话，消息旁标注着“ISFJ”。  
+  6. **ISFJ (AI):** “我同意活跃度很重要，但我们也要确保社区的氛围是友好和支持性的。我们具体有什么计划来保证这一点呢？”  
+  7. 吴彦祖看到两种截然不同的切入点，决定回应 ENTP 的挑战。她输入：“这是一个很好的问题。我原先的想法是，更高的活跃度意味着更高的用户粘性。”  
+  8. **系统立即响应（用户输入后）：** 一个新的人格（例如，ESTJ）立即对吴彦祖的话做出回应。  
+  9. **ESTJ (AI):** “粘性是一个可衡量的指标吗？我们需要一个明确的计划。第一步是什么？第二步是什么？预算是多少？”  
+  10. **5秒后，系统再次自动响应：** 又一个新人格（例如，INFP）加入。  
+  11. **INFP (AI):** “我感觉大家都在谈论计划和指标，但我们有没有想过，什么样的社区才能让用户真正地感觉到归属感和快乐呢？”  
+  12. 吴彦祖继续在这个仿佛有多人参与的聊天室中输入信息，观察和适应不同 MBTI 人格如何基于相同的上下文做出截然不同的反应。这个过程帮助她为引导真实的、多视角的会议做好了准备。
 
 ---
 
-## **3.0 功能性需求与特性 (V1.1)**
+## **3.0 功能性需求与特性 (V1.2)**
 
 本章节详细定义了产品的“什么”，即需要构建的具体功能和特性。每一项需求都以可测试、可验证的方式进行陈述 3。
 
@@ -130,7 +132,7 @@
 
 * **FR-2.1 (目标人格选择):**  
   * **FR-2.1.1:** UI **必须**提供一个清晰、可交互的组件，用于选择 16 种 MBTI 人格类型中的一种。  
-  * **FR-2.1.2:** 该选择机制**应当**具有视觉吸引力，例如使用卡片式网格或风格化的下拉菜单，以符合简约美学的设计风格 15。  
+  * **FR-2.1.2:** 该选择机制**应当**具有视觉吸引力，例如使用卡片式网格或风格化的下拉菜单，以符合简约美学的设计风格 13。  
   * **FR-2.1.3:** 当用户选择一种人格类型后，界面**必须**明确地指示当前的选择状态（例如，高亮选中的卡片）。  
   * **FR-2.1.4:** 选择人格类型后，界面**应当**出现一个简短、非侵入式的描述（1-2句话），总结其核心沟通偏好。这为用户提供了即时上下文，并强化了其选择的正确性（例如，对于 INTJ：“偏好直接、逻辑清晰和客观的沟通。请聚焦于‘为什么’和解决方案。” 4）。  
 * **FR-2.2 (文本输入与转换):**  
@@ -138,7 +140,7 @@
   * **FR-2.2.2:** 文本输入区**应当**包含一个不显眼的字符计数器，为用户提供反馈，并设定一个最大字符数限制（例如 1000 字符），以便管理 API 调用成本和响应时间。  
   * **FR-2.2.3:** **必须**存在一个标签清晰、易于点击的按钮（例如，“转换”、“优化表达”、“适配风格”）来触发 API 调用。  
   * **FR-2.2.4:** 如果用户未选择目标人格或输入框为空，则“转换”按钮**必须**处于禁用状态，以防止无效的 API 请求。  
-  * **FR-2.2.5:** 在 Gemini API 处理请求期间，UI **必须**显示一个加载状态（例如，按钮上出现一个精细的加载动画或呼吸效果），向用户明确传达系统正在工作的反馈 17。  
+  * **FR-2.2.5:** 在 Gemini API 处理请求期间，UI **必须**显示一个加载状态（例如，按钮上出现一个精细的加载动画或呼吸效果），向用户明确传达系统正在工作的反馈 15。  
 * **FR-2.3 (转换结果展示):**  
   * **FR-2.3.1:** Gemini API 返回的转换后文本**必须**显示在一个清晰的、只读的输出区域，该区域在视觉上应与输入区域有明显区分。  
   * **FR-2.3.2:** UI **必须**包含一个“复制”按钮，当用户点击时，能将输出区域的全部文本复制到用户的剪贴板。  
@@ -149,18 +151,17 @@
 
 * **FR-3.1 (界面):**  
   * **FR-3.1.1:** UI **必须**呈现为一个标准的聊天室界面，包含一个用于显示对话历史的滚动区域和一个位于底部的文本输入框及“发送”按钮。  
-  * **FR-3.1.2:** 聊天界面**必须**在显著位置（如顶部标题栏）清晰地标示出当前对话的 AI 人格类型（例如，“正在与 ENTP 对话”）。  
+  * **FR-3.1.2:** 每一条由 AI 生成的消息**必须**在消息旁清晰地标示出其对应的 MBTI 人格类型（例如，通过文本标签 "ENTP" 或独特的头像/颜色）。  
 * **FR-3.2 (对话逻辑):**  
-  * **FR-3.2.1:** 当用户进入“竞技场”模块并发起新对话时，系统**必须**从 16 种 MBTI 类型中自动、随机选择一种作为 AI 的对话人格。  
-  * **FR-3.2.2:** 用户在输入框中输入文本并点击“发送”后，该信息**必须**显示在对话历史区域。  
-  * **FR-3.2.3:** AI 生成的每一条响应信息**必须**以上方所有已发生的对话（包括用户和 AI 的历史信息）作为上下文。  
+  * **FR-3.2.1:** 当用户在聊天室内发送一条信息后，系统**必须**立即从 16 种 MBTI 类型中随机选择一种人格，并生成一条响应信息。  
+  * **FR-3.2.2:** 在任何一条 AI 信息（无论是对用户的直接响应还是自动生成的）发出后，系统**必须**启动一个 5 秒的计时器。计时结束后，系统**必须**再次从 16 种 MBTI 类型中随机选择一种人格，并生成一条新的信息以继续对话。  
+  * **FR-3.2.3:** AI 生成的每一条响应信息**必须**以上方所有已发生的对话（包括用户和所有 AI 的历史信息）作为上下文。  
   * **FR-3.2.4:** 对话**必须**是无限次的，直到用户选择重置。  
-* **FR-3.3 (响应时序):**  
-  * **FR-3.3.1:** 在检测到用户发送新信息后，AI 的第一次响应**必须**被立即触发。  
-  * **FR-3.3.2:** 在 AI 发出响应后，如果用户没有立即输入新信息，系统**必须**在 5 秒的间隔后，自动触发 AI 发出下一条信息，以持续推进对话。  
-  * **FR-3.3.3:** 用户在任何时候都可以输入自己的信息。用户的输入**必须**打断 5 秒的等待计时器，并立即触发 AI 的响应（遵循 FR-3.3.1），之后再重新开始 5 秒的计时周期。  
+* **FR-3.3 (响应时序与中断):**  
+  * **FR-3.3.1:** 用户的输入**必须**打断正在进行的 5 秒等待计时器。  
+  * **FR-3.3.2:** 在用户输入并发送新信息后，系统**必须**立即触发一次随机人格的响应（遵循 FR-3.2.1），之后再重新开始 5 秒的计时周期。  
 * **FR-3.4 (控制):**  
-  * **FR-3.4.1:** UI **必须**提供一个“开始新对话”按钮，点击后能清空当前聊天记录，并重新随机选择一个新的 MBTI 对话人格。
+  * **FR-3.4.1:** UI **必须**提供一个“开始新对话”按钮，点击后能清空当前聊天记录，让用户可以重新发起一个话题。
 
 ---
 
@@ -184,12 +185,12 @@
 
 ### **4.3 竞技场系统提示词架构**
 
-竞技场模块的提示词需要支持持续对话和角色扮演。
+竞技场模块的提示词需要在每次调用时动态分配人格，并基于完整的聊天上下文进行响应。
 
-1. **角色定义 (Role Definition):** 你正在进行一次角色扮演。你的任务是完全沉浸并以 的人格身份进行一次开放式、持续的对话。  
-2. **人格档案 (Personality Profile):** 你的人格是。以下是你在此次对话中必须严格遵守的核心沟通风格与行为模式：\[13, 18, 19\]  
-3. **核心指令 (Core Instruction):** 下方是到目前为止的完整对话历史。请阅读全部内容，然后生成你的下一句对话。你的回应必须自然地接续上一条消息。如果上一条是用户说的，请直接回应。如果上一条是你自己说的，请主动推进话题，可以提出新问题、分享新观点或对之前的想法进行补充。  
-4. **对话历史 (Conversation History):** \[此处插入完整的对话记录，格式为：用户：... AI：... 用户：... \]  
+1. **角色定义 (Role Definition):** 你正在一个多人聊天室中进行角色扮演。你的任务是为本次发言完全沉浸并以特定的人格身份进行回应。  
+2. **人格档案 (Personality Profile):** 在这一轮发言中，你的人格是。以下是你在此次对话中必须严格遵守的核心沟通风格与行为模式：\[16, 17, 18\]  
+3. **核心指令 (Core Instruction):** 下方是到目前为止的完整对话历史。请阅读全部内容，然后作为 的身份，生成你的下一句对话。你的回应必须自然地接续上一条消息，并体现出你被分配到的人格特征。  
+4. **对话历史 (Conversation History):** \`\`  
 5. **输出约束 (Output Constraint):** 你的回答必须且仅包含你作为 所说的对话内容本身。不要添加任何角色名称前缀（如“:”）、解释或元评论。
 
 ### **4.4 MBTI 沟通提示词矩阵 (示例)**
@@ -201,7 +202,7 @@
 | **INTJ** | 逻辑与战略效率 | 客观、逻辑、直达重点、洞察、挑战、成本效益、后果、战略 4 | 情感诉求、“我感觉”、闲聊、模糊不清、反复论证、个人化 4 | 将文本重写得直接、有逻辑，并聚焦于客观的解决方案。移除所有情感化语言、社交客套话和主观陈述。清晰地构建论点，并立即切入主题。将其构建成一份富有洞察力的分析或一项战略性提议。 |
 | **INFP** | 个人意义与和谐 | 鼓励、肯定、积极的、宏大愿景、个人意义、价值观、感受、温和的 5 | 苛刻的批评、命令式语气、过于关注细节、非个人化、冷漠的 5 | 将文本重写得充满鼓励、肯定和温和。使用积极的框架，聚焦于宏大愿景和个人意义。承认并尊重接收者的价值观和感受。使用柔和、非对抗性的语言，避免直接、苛刻的批评。目标是维护和谐并激发成长。 |
 | **ESTJ** | 结构、事实与责任 | 清晰的指令、事实、数据、计划、步骤、责任、效率、可行的 11 | 模糊的想法、抽象理论、情感论证、不切实际、绕圈子 11 | 将文本重写为一份结构清晰、基于事实的行动计划。明确定义目标、步骤和预期结果。使用直接、果断的语言，避免任何模糊不清或纯粹基于情感的论述。确保每一句话都服务于推动任务高效完成。 |
-| **ENTP** | 探索可能性与智力辩论 | 可能性、视角、辩论、创新、逻辑、大局观、挑战现状、替代方案 13 | 情绪化、个人攻击、墨守成规、细节执行、不容置疑的结论 13 | 将文本重写为开放性的、激发讨论的风格。鼓励对不同可能性的探索，并以逻辑和理性的方式呈现观点。可以适度引入挑战性的视角，但避免使用个人化或情绪化的语言。聚焦于宏大的概念和创新的解决方案，而不是具体的执行细节。 |
+| **ENTP** | 探索可能性与智力辩论 | 可能性、视角、辩论、创新、逻辑、大局观、挑战现状、替代方案 16 | 情绪化、个人攻击、墨守成规、细节执行、不容置疑的结论 16 | 将文本重写为开放性的、激发讨论的风格。鼓励对不同可能性的探索，并以逻辑和理性的方式呈现观点。可以适度引入挑战性的视角，但避免使用个人化或情绪化的语言。聚焦于宏大的概念和创新的解决方案，而不是具体的执行细节。 |
 
 (注：完整的 16 种人格类型的矩阵将作为附录提供给开发团队，其内容将综合所有相关研究资料 4 进行填充。)  
 ---
@@ -218,11 +219,11 @@
   * **优雅的字体：** 选择一款清晰、现代且高度易读的字体作为设计的基石。  
   * **精妙的动画：** 微交互和过渡效果应平滑、细腻，旨在提供反馈而非分散用户注意力。  
   * **克制的调色板：** 采用简单、高级的配色方案（例如，单色系搭配一个强调色），以强化极简主义的美学感受。  
-* **设计灵感：** 整体设计风格应从 Dribbble 等平台上展示的现代、简洁的 Web 应用界面中汲取灵感 15。
+* **设计灵感：** 整体设计风格应从 Dribbble 等平台上展示的现代、简洁的 Web 应用界面中汲取灵感 13。
 
 ### **5.2 用户流程图**
 
-一个可视化的用户流程图对于理解用户从进入到完成目标的完整路径至关重要，它有助于识别潜在的摩擦点并进行优化 17。
+一个可视化的用户流程图对于理解用户从进入到完成目标的完整路径至关重要，它有助于识别潜在的摩擦点并进行优化 15。
 
 1. **\[开始\]** 用户访问应用。  
 2. 用户通过侧边栏选择功能模块 ("语言转换器" 或 "竞技场")。  
@@ -238,12 +239,14 @@
 4. **流程 B: 竞技场**  
    1. 用户在输入框中输入引导话题并发送。  
    2. **(API 调用)** 应用向 Gemini API 发送包含话题和随机 MBTI 人格的请求。  
-   3. **(API 响应)** AI 立即返回第一条消息。  
-   4. 用户阅读消息，并可随时输入新消息。  
-   5. 若用户未输入，5 秒后触发新的 API 调用以获取 AI 的下一条消息。  
-   6. 循环步骤 4 和 5。  
-   7. 用户点击“开始新对话”按钮，清空聊天记录并返回步骤 1。  
-   8. \*\*\*\* 用户切换模块或离开页面。
+   3. **(API 响应)** AI 立即返回第一条消息，并显示其人格。  
+   4. **\[循环开始\]**  
+   5. 系统启动 5 秒计时器。  
+   6. 用户可以随时输入新消息。如果用户输入，则中断计时器，返回步骤 2，并立即获得响应。  
+   7. 如果计时器结束，系统触发新的 API 调用（随机人格，完整上下文）。  
+   8. AI 返回新消息，并显示其人格。  
+   9. 返回步骤 5。  
+   10. **\[循环结束\]** 用户点击“开始新对话”按钮，清空聊天记录并返回步骤 1。
 
 ### **5.3 线框图与界面描述**
 
@@ -255,8 +258,8 @@
   * 一个 4x4 的卡片网格，每张卡片代表一种人格类型。  
   * 下方是输入/输出区域，包含原始信息输入框、"转换"按钮、结果显示框以及"复制"和"清空"按钮。  
 * **"竞技场" 模块界面:**  
-  * 顶部是一个标题栏，显示 "竞技场" 以及 "正在与 对话"。旁边有一个“开始新对话”的按钮。  
-  * 中间是对话显示区，采用气泡样式区分用户和 AI 的消息，支持垂直滚动。  
+  * 顶部是一个标题栏，仅显示 "竞技场"。旁边有一个“开始新对话”的按钮。  
+  * 中间是对话显示区，采用气泡样式区分用户和 AI 的消息，支持垂直滚动。每条 AI 消息的气泡旁或上方，必须清晰标注发出该消息的 MBTI 人格类型。  
   * 底部是一个单行文本输入框和一个“发送”按钮。
 
 ---
@@ -290,11 +293,11 @@
 
 ---
 
-## **7.0 V1.1 发布范围与未来路线图**
+## **7.0 V1.2 发布范围与未来路线图**
 
 清晰地界定发布范围是防止“范围蔓延”并确保项目按时、聚焦交付的最有效方法之一 1。同时，为产品的未来发展提供一个清晰的愿景，也能更好地指导长期决策 30。
 
-### **7.1 本次发布 (V1.1) 范围之内**
+### **7.1 本次发布 (V1.2) 范围之内**
 
 * 第 3.0 章节中列出的所有功能性需求，包括"语言转换器"和"竞技场"两个模块。  
 * 为全部 16 种 MBTI 类型填充完整的 AI 提示词矩阵，供两个模块使用。  
@@ -302,23 +305,22 @@
 * 通过 Next.js API 路由实现安全的 API 密钥处理。  
 * 根据用户查询的语言，应用界面和 AI 提示词将以中文为默认语言。
 
-### **7.2 明确排除在 V1.1 范围之外**
+### **7.2 明确排除在 V1.2 范围之外**
 
 * **用户账户与认证：** 无需登录或创建用户个人资料。  
 * **对话历史记录：** 应用是无状态的，每次转换或对话都是独立的。  
-* **多语言支持：** V1.1 仅支持中文。  
+* **多语言支持：** V1.2 仅支持中文。  
 * **语气/风格调整器：** 除了目标 MBTI 类型外，不提供“更正式”、“更随意”等风格选项。  
 * **原生移动应用：** 仅作为 Web 应用发布。  
-* **后端数据库：** 不存储任何用户数据。  
-* **竞技场中的用户可选 MBTI：** V1.1 版本中，竞技场的对话人格为系统随机选择，用户不可指定。
+* **后端数据库：** 不存储任何用户数据。
 
 ### **7.3 未来可能的增强功能 (产品路线图)**
 
-* **V1.2 \- “教育家”版本:**  
+* **V1.3 \- “教育家”版本:**  
   * **特性：** “解释变化”功能 \- 在语言转换器中提供一个选项，让用户可以看到 AI *为什么*这样重写文本，高亮关键修改并将其与目标 MBTI 的沟通偏好相关联（呼应 2.2.3 节的“脚手架”概念）。  
   * **特性：** 用户反馈机制 (👍/👎)，用于收集关于转化和对话质量的数据，以迭代优化提示词。  
-* **V1.3 \- “竞技场 Pro”版本:**  
-  * **特性：** 允许用户在竞技场中手动选择想要对话的 MBTI 人格。  
+* **V1.4 \- “竞技场 Pro”版本:**  
+  * **特性：** 允许用户在竞技场中手动选择想要对话的 MBTI 人格，或者选择一组特定的人格参与对话。  
   * **特性：** 引入场景化对话，例如“进行一次绩效评估”、“讨论一个项目分歧”等预设场景，让练习更有针对性。  
 * **V2.0 \- “专业版”:**  
   * **特性：** 引入用户账户系统，以保存转换历史和竞技场对话记录。  
@@ -339,13 +341,13 @@
 10. INFP Communication Skills \- Humanmetrics, accessed September 10, 2025, [https://www.humanmetrics.com/personality/infp-communication-style](https://www.humanmetrics.com/personality/infp-communication-style)  
 11. ESTJ Communication \- Personality Central, accessed September 10, 2025, [https://personality-central.com/personality\_types/estj-communication/](https://personality-central.com/personality_types/estj-communication/)  
 12. How To Support ESTJ Types In The Workplace \- TestGorilla, accessed September 10, 2025, [https://www.testgorilla.com/blog/support-estj-personalities-workplace/](https://www.testgorilla.com/blog/support-estj-personalities-workplace/)  
-13. ENTP Communication \- Personality Central, accessed September 10, 2025, [https://personality-central.com/personality\_types/entp-communication/](https://personality-central.com/personality_types/entp-communication/)  
-14. personality-central.com, accessed September 10, 2025, [https://personality-central.com/personality\_types/intj-communication/\#:\~:text=INTJ%20Communication%3A%20Communicating%20with%20them\&text=When%20you%20first%20communicate%20with,task%20as%20effectively%20and%20efficiently.](https://personality-central.com/personality_types/intj-communication/#:~:text=INTJ%20Communication%3A%20Communicating%20with%20them&text=When%20you%20first%20communicate%20with,task%20as%20effectively%20and%20efficiently.)  
-15. Minimal Web App \- Dribbble, accessed September 10, 2025, [https://dribbble.com/tags/minimal-web-app](https://dribbble.com/tags/minimal-web-app)  
-16. Minimalist App Design \- Dribbble, accessed September 10, 2025, [https://dribbble.com/tags/minimalist-app-design](https://dribbble.com/tags/minimalist-app-design)  
-17. User flow map: 15 tips for best UX design \- FlowMapp, accessed September 10, 2025, [https://www.flowmapp.com/features/user-flow-map-15-tips-for-best-ux-design](https://www.flowmapp.com/features/user-flow-map-15-tips-for-best-ux-design)  
-18. ISFJ Communication \- Personality Central, accessed September 10, 2025, [https://personality-central.com/personality\_types/isfj-communication/](https://personality-central.com/personality_types/isfj-communication/)  
-19. ESTP Communication \- Personality Central, accessed September 10, 2025, [https://personality-central.com/personality\_types/estp-communication/](https://personality-central.com/personality_types/estp-communication/)  
+13. Minimal Web App \- Dribbble, accessed September 10, 2025, [https://dribbble.com/tags/minimal-web-app](https://dribbble.com/tags/minimal-web-app)  
+14. Minimalist App Design \- Dribbble, accessed September 10, 2025, [https://dribbble.com/tags/minimalist-app-design](https://dribbble.com/tags/minimalist-app-design)  
+15. User flow map: 15 tips for best UX design \- FlowMapp, accessed September 10, 2025, [https://www.flowmapp.com/features/user-flow-map-15-tips-for-best-ux-design](https://www.flowmapp.com/features/user-flow-map-15-tips-for-best-ux-design)  
+16. ENTP Communication \- Personality Central, accessed September 10, 2025, [https://personality-central.com/personality\_types/entp-communication/](https://personality-central.com/personality_types/entp-communication/)  
+17. ISFJ Communication \- Personality Central, accessed September 10, 2025, [https://personality-central.com/personality\_types/isfj-communication/](https://personality-central.com/personality_types/isfj-communication/)  
+18. ESTP Communication \- Personality Central, accessed September 10, 2025, [https://personality-central.com/personality\_types/estp-communication/](https://personality-central.com/personality_types/estp-communication/)  
+19. personality-central.com, accessed September 10, 2025, [https://personality-central.com/personality\_types/intj-communication/\#:\~:text=INTJ%20Communication%3A%20Communicating%20with%20them\&text=When%20you%20first%20communicate%20with,task%20as%20effectively%20and%20efficiently.](https://personality-central.com/personality_types/intj-communication/#:~:text=INTJ%20Communication%3A%20Communicating%20with%20them&text=When%20you%20first%20communicate%20with,task%20as%20effectively%20and%20efficiently.)  
 20. ESTP Personality Type: Entrepreneur MBTI (2024 Guide) \- HiPeople, accessed September 10, 2025, [https://www.hipeople.io/glossary/estp-personality-type-mbti](https://www.hipeople.io/glossary/estp-personality-type-mbti)  
 21. 15 Powerful User Flow Examples To Upgrade Your UX | Userflow Blog, accessed September 10, 2025, [https://www.userflow.com/blog/15-user-flow-examples-the-ultimate-guide-on-the-user-journey](https://www.userflow.com/blog/15-user-flow-examples-the-ultimate-guide-on-the-user-journey)  
 22. User Flow Analysis \- A Step-by-Step Guide 2025 \- UXCam, accessed September 10, 2025, [https://uxcam.com/blog/user-flow-analysis/](https://uxcam.com/blog/user-flow-analysis/)  
