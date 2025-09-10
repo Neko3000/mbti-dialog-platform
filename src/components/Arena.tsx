@@ -36,6 +36,7 @@ export default function Arena() {
   const [nextResponseTimer, setNextResponseTimer] = useState<number | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const isGeneratingRef = useRef<boolean>(false);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -49,7 +50,14 @@ export default function Arena() {
     return mbtiTypes[Math.floor(Math.random() * mbtiTypes.length)];
   };
 
-  const generateAIResponse = async (conversationHistory: Message[], triggerType: string) => {
+  const generateAIResponse = async (conversationHistory: Message[]) => {
+    // Prevent multiple simultaneous generations
+    if (isGeneratingRef.current) {
+      return;
+    }
+    
+    isGeneratingRef.current = true;
+    
     try {
       const randomType = getRandomMBTIType();
       
@@ -65,7 +73,7 @@ export default function Arena() {
             mbtiType: msg.mbtiType
           })),
           currentPersonality: randomType.code,
-          triggerType
+          triggerType: 'response'
         }),
       });
 
@@ -76,7 +84,7 @@ export default function Arena() {
       const data = await response.json();
       
       const aiMessage: Message = {
-        id: `ai-${Date.now()}`,
+        id: `ai-${Date.now()}-${Math.random()}`,
         text: data.response,
         sender: 'ai',
         mbtiType: randomType.code,
@@ -85,14 +93,11 @@ export default function Arena() {
 
       setMessages(prev => [...prev, aiMessage]);
       
-      // Start timer for next auto response
-      startAutoResponseTimer();
-      
     } catch (error) {
       console.error('生成AI响应失败:', error);
       
       const errorMessage: Message = {
-        id: `error-${Date.now()}`,
+        id: `error-${Date.now()}-${Math.random()}`,
         text: '抱歉，我暂时无法回应。请稍后再试。',
         sender: 'ai',
         mbtiType: 'SYSTEM',
@@ -100,7 +105,20 @@ export default function Arena() {
       };
       
       setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      isGeneratingRef.current = false;
     }
+  };
+
+  const triggerAutoResponse = () => {
+    setMessages(currentMessages => {
+      // Generate AI response using current messages
+      generateAIResponse(currentMessages);
+      return currentMessages; // Don't modify the state here
+    });
+    
+    // Schedule next auto response
+    startAutoResponseTimer();
   };
 
   const startAutoResponseTimer = () => {
@@ -116,12 +134,10 @@ export default function Arena() {
       if (countdown <= 0) {
         clearInterval(countdownInterval);
         setNextResponseTimer(null);
+        timerRef.current = null;
         
-        // Generate auto response
-        setMessages(current => {
-          generateAIResponse(current, 'auto');
-          return current;
-        });
+        // Trigger auto response after a small delay
+        setTimeout(triggerAutoResponse, 100);
       }
     }, 1000);
     
@@ -155,9 +171,14 @@ export default function Arena() {
     setIsLoading(true);
 
     // Generate immediate AI response
-    await generateAIResponse(updatedMessages, 'user');
+    await generateAIResponse(updatedMessages);
     
     setIsLoading(false);
+    
+    // Start the auto response timer
+    setTimeout(() => {
+      startAutoResponseTimer();
+    }, 500);
   };
 
   const handleNewConversation = () => {
@@ -165,6 +186,7 @@ export default function Arena() {
     setInputText('');
     clearTimer();
     setIsLoading(false);
+    isGeneratingRef.current = false;
   };
 
   const getMBTITypeInfo = (code: string) => {
