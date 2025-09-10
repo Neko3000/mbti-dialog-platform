@@ -26,6 +26,7 @@ export default function Home() {
   const [inputText, setInputText] = useState<string>('');
   const [outputText, setOutputText] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [copySuccess, setCopySuccess] = useState<boolean>(false);
 
   const handleTransform = async () => {
     if (!selectedType || !inputText.trim()) return;
@@ -78,8 +79,8 @@ export default function Home() {
               选择目标人格类型
             </h2>
             
-            {/* 4x4 Grid */}
-            <div className="grid grid-cols-4 gap-3 mb-4">
+            {/* 4x4 Grid - Responsive */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
               {mbtiTypes.map((type) => (
                 <button
                   key={type.code}
@@ -178,11 +179,19 @@ export default function Home() {
                   </div>
                   {outputText && (
                     <button
-                      onClick={() => navigator.clipboard.writeText(outputText)}
+                      onClick={async () => {
+                        try {
+                          await navigator.clipboard.writeText(outputText);
+                          setCopySuccess(true);
+                          setTimeout(() => setCopySuccess(false), 2000);
+                        } catch (err) {
+                          console.error('复制失败:', err);
+                        }
+                      }}
                       className="absolute top-2 right-2 px-3 py-1 text-xs bg-white border border-gray-200 
                                rounded hover:bg-gray-50 transition-colors"
                     >
-                      复制
+                      {copySuccess ? '已复制!' : '复制'}
                     </button>
                   )}
                 </div>
@@ -196,6 +205,7 @@ export default function Home() {
                       setInputText('');
                       setOutputText('');
                       setSelectedType(null);
+                      setCopySuccess(false);
                     }}
                     className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 transition-colors"
                   >
