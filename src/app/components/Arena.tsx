@@ -293,24 +293,40 @@ export default function Arena() {
       }
     }
 
-    // End conversation - release characters
+    // End conversation - clear bubble content first, then release characters
     setTimeout(() => {
-      setCharacters(prev => prev.map(char => {
-        if (char.id === char1.id || char.id === char2.id) {
-          return { 
-            ...char, 
-            isInteracting: false,
-            vx: (Math.random() - 0.5) * SPEED * 2,
-            vy: (Math.random() - 0.5) * SPEED * 2
-          };
+      // First clear the bubble content
+      setConversations(prev => prev.map(conv => {
+        if (conv.character1.id === conversation.character1.id && 
+            conv.character2.id === conversation.character2.id) {
+          const clearedMessages = conv.messages.map(msg => ({
+            ...msg,
+            displayedContent: ''
+          }));
+          return { ...conv, messages: clearedMessages };
         }
-        return char;
+        return conv;
       }));
 
-      setConversations(prev => prev.filter(conv => 
-        !(conv.character1.id === conversation.character1.id && 
-          conv.character2.id === conversation.character2.id)
-      ));
+      // Then remove the conversation and release characters after a short delay
+      setTimeout(() => {
+        setCharacters(prev => prev.map(char => {
+          if (char.id === char1.id || char.id === char2.id) {
+            return { 
+              ...char, 
+              isInteracting: false,
+              vx: (Math.random() - 0.5) * SPEED * 2,
+              vy: (Math.random() - 0.5) * SPEED * 2
+            };
+          }
+          return char;
+        }));
+
+        setConversations(prev => prev.filter(conv => 
+          !(conv.character1.id === conversation.character1.id && 
+            conv.character2.id === conversation.character2.id)
+        ));
+      }, 500); // Small delay to show empty bubble before removal
     }, 2000);
   };
 
@@ -563,7 +579,7 @@ export default function Arena() {
                         </span>
                       </div>
                       <p className="text-sm text-gray-800 leading-relaxed">
-                        {lastMessage.displayedContent || lastMessage.content}
+                        {lastMessage.displayedContent !== undefined ? lastMessage.displayedContent : lastMessage.content}
                       </p>
                     </div>
                   </div>
