@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const mbtiTypes = [
   { code: 'INTJ', name: '建筑师', description: '偏好直接、逻辑清晰和客观的沟通。聚焦于效率和解决方案。', emoji: '🏗️', gradient: 'from-purple-500 to-purple-700' },
@@ -28,13 +28,51 @@ export default function LanguageConverter() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [copySuccess, setCopySuccess] = useState<boolean>(false);
   const [isStreaming, setIsStreaming] = useState<boolean>(false);
+  const [fullResponseText, setFullResponseText] = useState<string>('');
+  const streamingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // 清理定时器
+  useEffect(() => {
+    return () => {
+      if (streamingTimeoutRef.current) {
+        clearTimeout(streamingTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // 字符级流式显示函数
+  const startCharacterStream = (text: string) => {
+    let currentIndex = 0;
+    const charDelay = 50; // 每个字符间隔50ms
+    
+    const displayNextChar = () => {
+      if (currentIndex <= text.length) {
+        const displayedText = text.substring(0, currentIndex);
+        setOutputText(displayedText);
+        currentIndex++;
+        
+        if (currentIndex <= text.length) {
+          streamingTimeoutRef.current = setTimeout(displayNextChar, charDelay);
+        } else {
+          setIsStreaming(false);
+        }
+      }
+    };
+    
+    displayNextChar();
+  };
 
   const handleTransform = async () => {
     if (!selectedType || !inputText.trim()) return;
 
     setIsLoading(true);
-    setIsStreaming(true);
     setOutputText('');
+    setFullResponseText('');
+    
+    // 清除之前的流式显示定时器
+    if (streamingTimeoutRef.current) {
+      clearTimeout(streamingTimeoutRef.current);
+    }
     
     try {
       const response = await fetch('/api/transform', {
@@ -54,6 +92,7 @@ export default function LanguageConverter() {
 
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
+      let accumulatedText = '';
 
       if (reader) {
         let buffer = '';
@@ -74,10 +113,12 @@ export default function LanguageConverter() {
                 const data = JSON.parse(jsonStr);
                 
                 if (data.content) {
-                  setOutputText(prev => prev + data.content);
+                  accumulatedText += data.content;
                 } else if (data.done) {
-                  setIsStreaming(false);
                   setIsLoading(false);
+                  setFullResponseText(accumulatedText);
+                  setIsStreaming(true);
+                  startCharacterStream(accumulatedText);
                   return;
                 } else if (data.error) {
                   throw new Error(data.error);
@@ -95,7 +136,6 @@ export default function LanguageConverter() {
       console.error('转换失败:', error);
       setOutputText('转换失败，请稍后重试。');
       setIsStreaming(false);
-    } finally {
       setIsLoading(false);
     }
   };
@@ -106,6 +146,12 @@ export default function LanguageConverter() {
     setSelectedType(null);
     setCopySuccess(false);
     setIsStreaming(false);
+    setFullResponseText('');
+    
+    // 清除流式显示定时器
+    if (streamingTimeoutRef.current) {
+      clearTimeout(streamingTimeoutRef.current);
+    }
   };
 
   const handleCopy = async () => {
