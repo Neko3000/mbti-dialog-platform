@@ -138,7 +138,7 @@ export default function Arena() {
     const bubbleWidth = 280;
     const bubbleHeight = 100;
     let bubbleX = speaker.x + CHARACTER_SIZE / 2 - bubbleWidth / 2;
-    let bubbleY = speaker.y - bubbleHeight + 30; // Move bubble closer to character
+    let bubbleY = speaker.y - 10; // Gap between bubble bottom and character top
     
     // Ensure bubble stays within canvas bounds
     bubbleX = Math.max(10, Math.min(CANVAS_WIDTH - bubbleWidth - 10, bubbleX));
@@ -169,7 +169,7 @@ export default function Arena() {
         
         // Calculate other bubble position (simplified)
         let otherBubbleX = otherSpeaker.x + CHARACTER_SIZE / 2 - bubbleWidth / 2;
-        let otherBubbleY = otherSpeaker.y - bubbleHeight + 30;
+        let otherBubbleY = otherSpeaker.y - 10;
         otherBubbleX = Math.max(10, Math.min(CANVAS_WIDTH - bubbleWidth - 10, otherBubbleX));
         otherBubbleY = Math.max(10, otherBubbleY);
         if (otherBubbleY < 10) {
