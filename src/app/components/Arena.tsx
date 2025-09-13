@@ -43,7 +43,7 @@ const mbtiTypes = [
 export default function Arena() {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [conversations, setConversations] = useState<Conversation[]>([]);
-  const [showMbtiSelector, setShowMbtiSelector] = useState(false);
+  const [selectedMbtiType, setSelectedMbtiType] = useState<string | null>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null);
 
@@ -60,10 +60,12 @@ export default function Arena() {
     return mbtiTypes.find(mbti => mbti.code === type);
   };
 
-  const addCharacter = (mbtiType: string) => {
+  const addCharacter = () => {
+    if (!selectedMbtiType) return;
+    
     const newCharacter: Character = {
       id: Date.now().toString() + Math.random(),
-      mbtiType,
+      mbtiType: selectedMbtiType,
       x: Math.random() * (CANVAS_WIDTH - CHARACTER_SIZE),
       y: Math.random() * (CANVAS_HEIGHT - CHARACTER_SIZE),
       vx: (Math.random() - 0.5) * SPEED * 2,
@@ -71,12 +73,12 @@ export default function Arena() {
       isInteracting: false
     };
     setCharacters(prev => [...prev, newCharacter]);
-    setShowMbtiSelector(false);
   };
 
   const resetArena = () => {
     setCharacters([]);
     setConversations([]);
+    setSelectedMbtiType(null);
     if (animationRef.current !== null) {
       cancelAnimationFrame(animationRef.current);
     }
@@ -259,13 +261,6 @@ export default function Arena() {
         </div>
         <div className="flex gap-3">
           <button
-            onClick={() => setShowMbtiSelector(!showMbtiSelector)}
-            className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-medium text-sm rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
-          >
-            <span>➕</span>
-            添加角色
-          </button>
-          <button
             onClick={resetArena}
             className="px-4 py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white font-medium text-sm rounded-lg hover:from-red-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
           >
@@ -275,29 +270,60 @@ export default function Arena() {
         </div>
       </div>
 
-      {/* MBTI Type Selector */}
-      {showMbtiSelector && (
-        <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
-          <h3 className="text-lg font-semibold mb-4 text-gray-800">选择MBTI人格类型</h3>
-          <div className="grid grid-cols-4 md:grid-cols-8 gap-3">
-            {mbtiTypes.map((type) => (
-              <button
-                key={type.code}
-                onClick={() => addCharacter(type.code)}
-                className="p-3 bg-white/80 hover:bg-white border border-white/30 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 text-center"
-              >
-                <div className="text-2xl mb-1">{type.emoji}</div>
-                <div className={`text-xs font-mono font-bold ${type.color}`}>
-                  {type.code}
-                </div>
-                <div className="text-xs text-gray-600 mt-1">
-                  {type.name}
-                </div>
-              </button>
-            ))}
-          </div>
+      {/* Role Selection Panel - Always Visible */}
+      <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-gray-800">选择角色类型</h3>
+          <button
+            onClick={addCharacter}
+            disabled={!selectedMbtiType}
+            className={`px-4 py-2 font-medium text-sm rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center gap-2 ${
+              selectedMbtiType
+                ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
+          >
+            <span>🚀</span>
+            加入竞技场
+          </button>
         </div>
-      )}
+        <div className="grid grid-cols-4 md:grid-cols-8 gap-3">
+          {mbtiTypes.map((type) => (
+            <button
+              key={type.code}
+              onClick={() => setSelectedMbtiType(type.code)}
+              className={`p-3 border rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 text-center ${
+                selectedMbtiType === type.code
+                  ? 'bg-blue-100 border-blue-400 shadow-lg ring-2 ring-blue-300'
+                  : 'bg-white/80 hover:bg-white border-white/30'
+              }`}
+            >
+              <div className="text-2xl mb-1">{type.emoji}</div>
+              <div className={`text-xs font-mono font-bold ${type.color}`}>
+                {type.code}
+              </div>
+              <div className="text-xs text-gray-600 mt-1">
+                {type.name}
+              </div>
+            </button>
+          ))}
+        </div>
+        {selectedMbtiType && (
+          <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+            <div className="flex items-center gap-3">
+              <div className="text-2xl">{getMbtiInfo(selectedMbtiType)?.emoji}</div>
+              <div>
+                <div className="font-semibold text-gray-800">
+                  已选择: {getMbtiInfo(selectedMbtiType)?.name} ({selectedMbtiType})
+                </div>
+                <div className="text-sm text-gray-600">
+                  点击"加入竞技场"按钮将此角色添加到竞技场中
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Arena Canvas */}
       <div className="bg-white/60 backdrop-blur-sm rounded-2xl border border-white/20 p-6">
