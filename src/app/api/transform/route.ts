@@ -45,16 +45,40 @@ export async function POST(req: NextRequest) {
 
 请重写以下用户输入：`;
 
-    const result = await model.generateContent([
+    const result = await model.generateContentStream([
       { text: systemInstruction },
       { text: `用户原文：${inputText}` }
     ]);
 
-    const response = await result.response;
-    const transformedText = response.text();
+    const encoder = new TextEncoder();
+    const stream = new ReadableStream({
+      async start(controller) {
+        try {
+          for await (const chunk of result.stream) {
+            const chunkText = chunk.text();
+            const data = `data: ${JSON.stringify({ content: chunkText })}\n\n`;
+            controller.enqueue(encoder.encode(data));
+          }
+          
+          const endData = `data: ${JSON.stringify({ done: true })}\n\n`;
+          controller.enqueue(encoder.encode(endData));
+          controller.close();
+        } catch (error) {
+          console.error('Stream error:', error);
+          const errorData = `data: ${JSON.stringify({ error: 'Stream interrupted' })}\n\n`;
+          controller.enqueue(encoder.encode(errorData));
+          controller.close();
+        }
+      }
+    });
 
-    return NextResponse.json({ 
-      transformedText: transformedText.trim()
+    return new Response(stream, {
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Transfer-Encoding': 'chunked',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+      },
     });
 
   } catch (error) {

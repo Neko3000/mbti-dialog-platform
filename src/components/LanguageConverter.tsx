@@ -27,11 +27,15 @@ export default function LanguageConverter() {
   const [outputText, setOutputText] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [copySuccess, setCopySuccess] = useState<boolean>(false);
+  const [isStreaming, setIsStreaming] = useState<boolean>(false);
 
   const handleTransform = async () => {
     if (!selectedType || !inputText.trim()) return;
 
     setIsLoading(true);
+    setIsStreaming(true);
+    setOutputText('');
+    
     try {
       const response = await fetch('/api/transform', {
         method: 'POST',
@@ -48,11 +52,49 @@ export default function LanguageConverter() {
         throw new Error('转换失败');
       }
 
-      const data = await response.json();
-      setOutputText(data.transformedText);
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+
+      if (reader) {
+        let buffer = '';
+        
+        while (true) {
+          const { done, value } = await reader.read();
+          
+          if (done) break;
+          
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          
+          for (let i = 0; i < lines.length - 1; i++) {
+            const line = lines[i].trim();
+            if (line.startsWith('data: ')) {
+              try {
+                const jsonStr = line.slice(6);
+                const data = JSON.parse(jsonStr);
+                
+                if (data.content) {
+                  setOutputText(prev => prev + data.content);
+                } else if (data.done) {
+                  setIsStreaming(false);
+                  setIsLoading(false);
+                  return;
+                } else if (data.error) {
+                  throw new Error(data.error);
+                }
+              } catch (parseError) {
+                console.error('Parse error:', parseError);
+              }
+            }
+          }
+          
+          buffer = lines[lines.length - 1];
+        }
+      }
     } catch (error) {
       console.error('转换失败:', error);
       setOutputText('转换失败，请稍后重试。');
+      setIsStreaming(false);
     } finally {
       setIsLoading(false);
     }
@@ -63,6 +105,7 @@ export default function LanguageConverter() {
     setOutputText('');
     setSelectedType(null);
     setCopySuccess(false);
+    setIsStreaming(false);
   };
 
   const handleCopy = async () => {
@@ -168,23 +211,23 @@ export default function LanguageConverter() {
         <div className="text-center">
           <button
             onClick={handleTransform}
-            disabled={!selectedType || !inputText.trim() || isLoading}
+            disabled={!selectedType || !inputText.trim() || isLoading || isStreaming}
             className={`
               relative px-8 py-3 rounded-xl font-bold text-lg transition-all duration-300 transform
-              ${(!selectedType || !inputText.trim() || isLoading)
+              ${(!selectedType || !inputText.trim() || isLoading || isStreaming)
                 ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
                 : 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 hover:scale-105 shadow-lg hover:shadow-xl active:scale-95'
               }
             `}
           >
             <span className="flex items-center gap-2">
-              {isLoading ? (
+              {isLoading || isStreaming ? (
                 <>
                   <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                   </svg>
-                  转换中...
+                  {isStreaming ? '生成中...' : '转换中...'}
                 </>
               ) : (
                 <>
@@ -206,12 +249,24 @@ export default function LanguageConverter() {
             <div className="w-full min-h-32 p-4 bg-gradient-to-br from-green-50 to-blue-50 border-2 border-green-200 rounded-xl shadow-inner">
               {outputText ? (
                 <div className="space-y-3">
-                  <div className="flex items-center gap-2 text-green-700 text-sm font-medium">
-                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                    转换完成
+                  <div className="flex items-center gap-2 text-sm font-medium">
+                    {isStreaming ? (
+                      <>
+                        <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+                        <span className="text-blue-700">正在生成...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                        <span className="text-green-700">转换完成</span>
+                      </>
+                    )}
                   </div>
                   <p className="text-gray-800 leading-relaxed whitespace-pre-wrap bg-white/60 p-3 rounded-lg">
                     {outputText}
+                    {isStreaming && (
+                      <span className="inline-block w-2 h-5 bg-blue-500 animate-pulse ml-1 align-text-bottom"></span>
+                    )}
                   </p>
                 </div>
               ) : (
