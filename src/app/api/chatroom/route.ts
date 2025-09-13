@@ -45,9 +45,9 @@ export async function POST(req: NextRequest) {
     const historyString = conversationHistory
       .map((msg: any) => {
         if (msg.sender === 'user') {
-          return `用户: ${msg.content}`;
+          return `用户: ${msg.text}`;
         } else {
-          return `${msg.mbtiType}: ${msg.content}`;
+          return `${msg.mbtiType}: ${msg.text}`;
         }
       })
       .join('\n');
@@ -77,7 +77,7 @@ ${mbtiPrompt.systemPrompt}
     const aiResponse = response.text();
 
     return NextResponse.json({ 
-      message: aiResponse.trim(),
+      response: aiResponse.trim(),
       mbtiType: currentPersonality
     });
 
