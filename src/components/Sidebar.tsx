@@ -1,8 +1,8 @@
 'use client';
 
 interface SidebarProps {
-  activeModule: 'converter' | 'chatroom';
-  onModuleChange: (module: 'converter' | 'chatroom') => void;
+  activeModule: 'converter' | 'chatroom' | 'arena';
+  onModuleChange: (module: 'converter' | 'chatroom' | 'arena') => void;
 }
 
 const modules = [
@@ -17,6 +17,12 @@ const modules = [
     name: '聊天室',
     icon: '🎭',
     description: '多人格对话模拟'
+  },
+  {
+    id: 'arena' as const,
+    name: '竞技场',
+    icon: '🏟️',
+    description: '观察人格自主互动'
   }
 ];
 

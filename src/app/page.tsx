@@ -4,9 +4,10 @@ import { useState } from 'react';
 import Sidebar from '@/components/Sidebar';
 import LanguageConverter from '@/components/LanguageConverter';
 import ChatRoom from '@/components/ChatRoom';
+import Arena from '@/app/components/Arena';
 
 export default function Home() {
-  const [activeModule, setActiveModule] = useState<'converter' | 'chatroom'>('converter');
+  const [activeModule, setActiveModule] = useState<'converter' | 'chatroom' | 'arena'>('converter');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-pink-50 flex">
@@ -35,8 +36,10 @@ export default function Home() {
             <div className="pb-64">
               {activeModule === 'converter' ? (
                 <LanguageConverter />
-              ) : (
+              ) : activeModule === 'chatroom' ? (
                 <ChatRoom />
+              ) : (
+                <Arena />
               )}
             </div>
           </div>

@@ -4,19 +4,19 @@ import { getMBTIPrompt } from '@/lib/mbti-prompts';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
-interface ConversationMessage {
-  text: string;
-  sender: 'user' | 'ai';
-  mbtiType?: string;
+interface ArenaMessage {
+  speaker: string;
+  content: string;
+  turn: number;
 }
 
 export async function POST(req: NextRequest) {
   try {
-    const { conversationHistory, currentPersonality, triggerType } = await req.json();
+    const { speaker, listener, conversationHistory, turn, isFirstTurn } = await req.json();
 
-    if (!currentPersonality) {
+    if (!speaker || !listener) {
       return NextResponse.json(
-        { error: '缺少人格类型参数' },
+        { error: '缺少角色参数' },
         { status: 400 }
       );
     }
@@ -28,8 +28,10 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const mbtiPrompt = getMBTIPrompt(currentPersonality);
-    if (!mbtiPrompt) {
+    const speakerPrompt = getMBTIPrompt(speaker);
+    const listenerPrompt = getMBTIPrompt(listener);
+    
+    if (!speakerPrompt || !listenerPrompt) {
       return NextResponse.json(
         { error: '无效的MBTI类型' },
         { status: 400 }
@@ -40,42 +42,59 @@ export async function POST(req: NextRequest) {
 
     // Build conversation history string
     const historyString = conversationHistory
-      .map((msg: ConversationMessage) => {
-        if (msg.sender === 'user') {
-          return `用户: ${msg.text}`;
-        } else {
-          return `${msg.mbtiType}: ${msg.text}`;
-        }
-      })
+      .map((msg: ArenaMessage) => `${msg.speaker}: ${msg.content}`)
       .join('\n');
 
-    const systemInstruction = `你正在一个多人聊天室中进行角色扮演。你的任务是完全沉浸并以特定的人格身份进行回应。
+    let systemInstruction: string;
+    
+    if (isFirstTurn) {
+      // First turn - speaker initiates conversation
+      systemInstruction = `你是一个 MBTI 对话模拟器。现在 ${speaker} 人格和 ${listener} 人格正在进行对话。
 
-在这一轮发言中，你的人格是：${mbtiPrompt.code} (${mbtiPrompt.name})
-以下是你在此次对话中必须严格遵守的核心沟通风格与行为模式：
-${mbtiPrompt.systemPrompt}
+你现在扮演 ${speaker} 人格，具有以下特点：
+${speakerPrompt.systemPrompt}
 
-重要指示：
-1. 你必须严格按照 ${mbtiPrompt.code} 的人格特征来回应
-2. 你的回应应该自然地接续上一条消息，并体现出你被分配到的人格特征
-3. 保持对话的连贯性和真实感
-4. 你的回答必须且仅包含你作为 ${mbtiPrompt.code} 所说的对话内容本身
-5. 不要添加任何角色名称前缀、解释或元评论
-6. 回应长度控制在1-3句话，保持自然对话的节奏
+你需要作为 ${speaker}，向 ${listener} 提出一个随机的、开启对话的问题或话题。
 
-下方是到目前为止的完整对话历史：`;
+要求：
+1. 严格按照 ${speaker} 人格特征来提问
+2. 提出的话题应该能引发有趣的对话
+3. 只输出对话内容本身，不要添加任何前缀或后缀
+4. 控制在1-2句话
+5. 话题可以是工作、生活、兴趣爱好、价值观等任意方面`;
+    } else {
+      // Continuing conversation
+      systemInstruction = `你是一个 MBTI 对话模拟器。现在 ${speaker} 人格和 ${listener} 人格正在进行对话。
 
-    const result = await model.generateContent([
-      { text: systemInstruction },
-      { text: historyString || '对话开始' }
-    ]);
+你现在扮演 ${speaker} 人格，具有以下特点：
+${speakerPrompt.systemPrompt}
+
+对话对象是 ${listener} 人格，特点：
+${listenerPrompt.systemPrompt}
+
+以下是 ${speaker} 和 ${listener} 之间的对话历史：
+${historyString}
+
+现在轮到 ${speaker} 发言。请根据其人格特点和对话上下文，生成下一句回应。
+
+要求：
+1. 严格按照 ${speaker} 人格特征来回应
+2. 回应要自然承接之前的对话
+3. 只输出对话内容本身，不要添加任何前缀或后缀
+4. 控制在1-2句话
+5. 体现人格差异和互动特点`;
+    }
+
+    const result = await model.generateContent(systemInstruction);
 
     const response = await result.response;
     const aiResponse = response.text();
 
     return NextResponse.json({ 
       response: aiResponse.trim(),
-      personality: currentPersonality
+      speaker: speaker,
+      listener: listener,
+      turn: turn
     });
 
   } catch (error) {

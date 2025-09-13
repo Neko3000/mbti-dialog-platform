@@ -1,0 +1,415 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+
+interface Character {
+  id: string;
+  mbtiType: string;
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  isInteracting: boolean;
+}
+
+interface Conversation {
+  character1: Character;
+  character2: Character;
+  messages: { speaker: string; content: string; turn: number }[];
+  currentTurn: number;
+  isActive: boolean;
+  timeRemaining: number;
+}
+
+const mbtiTypes = [
+  { code: 'INTJ', name: '建筑师', emoji: '🏗️', color: 'text-purple-600' },
+  { code: 'INTP', name: '思想家', emoji: '🧪', color: 'text-purple-500' },
+  { code: 'ENTJ', name: '指挥官', emoji: '👑', color: 'text-orange-600' },
+  { code: 'ENTP', name: '辩论家', emoji: '🦊', color: 'text-orange-500' },
+  { code: 'INFJ', name: '提倡者', emoji: '🧙‍♂️', color: 'text-green-600' },
+  { code: 'INFP', name: '调停者', emoji: '🦄', color: 'text-pink-600' },
+  { code: 'ENFJ', name: '主人公', emoji: '🐶', color: 'text-green-500' },
+  { code: 'ENFP', name: '竞选者', emoji: '🐬', color: 'text-blue-500' },
+  { code: 'ISTJ', name: '物流师', emoji: '🔍', color: 'text-blue-600' },
+  { code: 'ISFJ', name: '守护者', emoji: '🦌', color: 'text-blue-400' },
+  { code: 'ESTJ', name: '总经理', emoji: '🦁', color: 'text-orange-500' },
+  { code: 'ESFJ', name: '执政官', emoji: '🐘', color: 'text-pink-500' },
+  { code: 'ISTP', name: '鉴赏家', emoji: '🛠️', color: 'text-yellow-600' },
+  { code: 'ISFP', name: '探险家', emoji: '🐰', color: 'text-yellow-500' },
+  { code: 'ESTP', name: '企业家', emoji: '🐆', color: 'text-red-600' },
+  { code: 'ESFP', name: '娱乐家', emoji: '🎭', color: 'text-yellow-500' }
+];
+
+export default function Arena() {
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [showMbtiSelector, setShowMbtiSelector] = useState(false);
+  const canvasRef = useRef<HTMLDivElement>(null);
+  const animationRef = useRef<number | null>(null);
+
+  // Arena settings
+  const CANVAS_WIDTH = 800;
+  const CANVAS_HEIGHT = 600;
+  const CHARACTER_SIZE = 60;
+  const INTERACTION_DISTANCE = 100;
+  const SPEED = 1.5;
+  const MAX_CONVERSATION_TURNS = 10;
+  const CONVERSATION_TURN_DURATION = 3000; // 3 seconds per turn
+
+  const getMbtiInfo = (type: string) => {
+    return mbtiTypes.find(mbti => mbti.code === type);
+  };
+
+  const addCharacter = (mbtiType: string) => {
+    const newCharacter: Character = {
+      id: Date.now().toString() + Math.random(),
+      mbtiType,
+      x: Math.random() * (CANVAS_WIDTH - CHARACTER_SIZE),
+      y: Math.random() * (CANVAS_HEIGHT - CHARACTER_SIZE),
+      vx: (Math.random() - 0.5) * SPEED * 2,
+      vy: (Math.random() - 0.5) * SPEED * 2,
+      isInteracting: false
+    };
+    setCharacters(prev => [...prev, newCharacter]);
+    setShowMbtiSelector(false);
+  };
+
+  const resetArena = () => {
+    setCharacters([]);
+    setConversations([]);
+    if (animationRef.current !== null) {
+      cancelAnimationFrame(animationRef.current);
+    }
+  };
+
+  const removeCharacter = (id: string) => {
+    setCharacters(prev => prev.filter(char => char.id !== id));
+    setConversations(prev => prev.filter(conv => 
+      conv.character1.id !== id && conv.character2.id !== id
+    ));
+  };
+
+  const distance = (char1: Character, char2: Character) => {
+    return Math.sqrt(Math.pow(char1.x - char2.x, 2) + Math.pow(char1.y - char2.y, 2));
+  };
+
+  const startConversation = async (char1: Character, char2: Character) => {
+    // Mark characters as interacting
+    setCharacters(prev => prev.map(char => {
+      if (char.id === char1.id || char.id === char2.id) {
+        return { ...char, isInteracting: true };
+      }
+      return char;
+    }));
+
+    const conversation: Conversation = {
+      character1: char1,
+      character2: char2,
+      messages: [],
+      currentTurn: 0,
+      isActive: true,
+      timeRemaining: CONVERSATION_TURN_DURATION
+    };
+
+    setConversations(prev => [...prev, conversation]);
+
+    // Start the conversation loop
+    for (let turn = 0; turn < MAX_CONVERSATION_TURNS; turn++) {
+      const speaker = turn % 2 === 0 ? char1 : char2;
+      const listener = turn % 2 === 0 ? char2 : char1;
+      
+      try {
+        const response = await fetch('/api/chatroom/arena', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            speaker: speaker.mbtiType,
+            listener: listener.mbtiType,
+            conversationHistory: conversation.messages,
+            turn: turn,
+            isFirstTurn: turn === 0
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const newMessage = {
+            speaker: speaker.mbtiType,
+            content: data.response,
+            turn: turn
+          };
+          
+          conversation.messages.push(newMessage);
+
+          // Update conversation state
+          setConversations(prev => prev.map(conv => 
+            conv.character1.id === conversation.character1.id && 
+            conv.character2.id === conversation.character2.id ? 
+            { ...conv, messages: [...conversation.messages], currentTurn: turn + 1 } : conv
+          ));
+
+          // Wait before next turn
+          await new Promise(resolve => setTimeout(resolve, CONVERSATION_TURN_DURATION));
+        } else {
+          console.error('Failed to generate conversation turn');
+          break;
+        }
+      } catch (error) {
+        console.error('对话生成失败:', error);
+        break;
+      }
+    }
+
+    // End conversation - release characters
+    setTimeout(() => {
+      setCharacters(prev => prev.map(char => {
+        if (char.id === char1.id || char.id === char2.id) {
+          return { 
+            ...char, 
+            isInteracting: false,
+            vx: (Math.random() - 0.5) * SPEED * 2,
+            vy: (Math.random() - 0.5) * SPEED * 2
+          };
+        }
+        return char;
+      }));
+
+      setConversations(prev => prev.filter(conv => 
+        !(conv.character1.id === conversation.character1.id && 
+          conv.character2.id === conversation.character2.id)
+      ));
+    }, 2000);
+  };
+
+  const updateCharacters = () => {
+    setCharacters(prev => {
+      const newCharacters = prev.map(char => {
+        if (char.isInteracting) return char;
+
+        let newX = char.x + char.vx;
+        let newY = char.y + char.vy;
+        let newVx = char.vx;
+        let newVy = char.vy;
+
+        // Boundary collision detection
+        if (newX <= 0 || newX >= CANVAS_WIDTH - CHARACTER_SIZE) {
+          newVx = -newVx;
+          newX = Math.max(0, Math.min(CANVAS_WIDTH - CHARACTER_SIZE, newX));
+        }
+        if (newY <= 0 || newY >= CANVAS_HEIGHT - CHARACTER_SIZE) {
+          newVy = -newVy;
+          newY = Math.max(0, Math.min(CANVAS_HEIGHT - CHARACTER_SIZE, newY));
+        }
+
+        return { ...char, x: newX, y: newY, vx: newVx, vy: newVy };
+      });
+
+      // Check for character interactions
+      for (let i = 0; i < newCharacters.length; i++) {
+        for (let j = i + 1; j < newCharacters.length; j++) {
+          const char1 = newCharacters[i];
+          const char2 = newCharacters[j];
+          
+          // Check if these characters are already in a conversation
+          const existingConversation = conversations.find(conv => 
+            (conv.character1.id === char1.id && conv.character2.id === char2.id) ||
+            (conv.character1.id === char2.id && conv.character2.id === char1.id)
+          );
+          
+          if (!char1.isInteracting && !char2.isInteracting && 
+              !existingConversation &&
+              distance(char1, char2) < INTERACTION_DISTANCE) {
+            // Start conversation
+            startConversation(char1, char2);
+          }
+        }
+      }
+
+      return newCharacters;
+    });
+  };
+
+  useEffect(() => {
+    const animate = () => {
+      updateCharacters();
+      animationRef.current = requestAnimationFrame(animate);
+    };
+    
+    animate();
+
+    return () => {
+      if (animationRef.current !== null) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 border border-white/20 flex items-center justify-between">
+        <div>
+          <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+            <span>🏟️</span>
+            竞技场
+          </h2>
+          <p className="text-sm text-gray-600 mt-1">观察不同MBTI人格的自主互动对话</p>
+        </div>
+        <div className="flex gap-3">
+          <button
+            onClick={() => setShowMbtiSelector(!showMbtiSelector)}
+            className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-medium text-sm rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
+          >
+            <span>➕</span>
+            添加角色
+          </button>
+          <button
+            onClick={resetArena}
+            className="px-4 py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white font-medium text-sm rounded-lg hover:from-red-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
+          >
+            <span>🔄</span>
+            重置竞技场
+          </button>
+        </div>
+      </div>
+
+      {/* MBTI Type Selector */}
+      {showMbtiSelector && (
+        <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
+          <h3 className="text-lg font-semibold mb-4 text-gray-800">选择MBTI人格类型</h3>
+          <div className="grid grid-cols-4 md:grid-cols-8 gap-3">
+            {mbtiTypes.map((type) => (
+              <button
+                key={type.code}
+                onClick={() => addCharacter(type.code)}
+                className="p-3 bg-white/80 hover:bg-white border border-white/30 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 text-center"
+              >
+                <div className="text-2xl mb-1">{type.emoji}</div>
+                <div className={`text-xs font-mono font-bold ${type.color}`}>
+                  {type.code}
+                </div>
+                <div className="text-xs text-gray-600 mt-1">
+                  {type.name}
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Arena Canvas */}
+      <div className="bg-white/60 backdrop-blur-sm rounded-2xl border border-white/20 p-6">
+        <div 
+          ref={canvasRef}
+          className="relative bg-gradient-to-br from-slate-50 to-slate-100 border-2 border-slate-200 rounded-2xl shadow-inner overflow-hidden mx-auto"
+          style={{ width: CANVAS_WIDTH, height: CANVAS_HEIGHT }}
+        >
+          {characters.length === 0 ? (
+            <div className="flex items-center justify-center h-full">
+              <div className="text-center space-y-4">
+                <div className="text-6xl">🏟️</div>
+                <h3 className="text-xl font-semibold text-gray-800">
+                  竞技场空无一人
+                </h3>
+                <p className="text-gray-600">
+                  点击"添加角色"来观察MBTI人格之间的自主互动
+                </p>
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* Characters */}
+              {characters.map((character) => {
+                const mbtiInfo = getMbtiInfo(character.mbtiType);
+                return (
+                  <div
+                    key={character.id}
+                    className={`absolute transition-all duration-100 ${
+                      character.isInteracting ? 'z-20' : 'z-10'
+                    } group`}
+                    style={{
+                      left: character.x,
+                      top: character.y,
+                      width: CHARACTER_SIZE,
+                      height: CHARACTER_SIZE
+                    }}
+                  >
+                    <div className={`w-full h-full rounded-full border-4 ${
+                      character.isInteracting 
+                        ? 'border-yellow-400 shadow-lg shadow-yellow-400/50 animate-pulse' 
+                        : 'border-white shadow-lg'
+                    } bg-white/90 backdrop-blur-sm flex flex-col items-center justify-center text-center transition-all duration-300 cursor-pointer hover:scale-110`}>
+                      <div className="text-2xl">{mbtiInfo?.emoji}</div>
+                      <div className={`text-xs font-mono font-bold ${mbtiInfo?.color}`}>
+                        {character.mbtiType}
+                      </div>
+                    </div>
+                    
+                    {/* Remove button */}
+                    <button
+                      onClick={() => removeCharacter(character.id)}
+                      className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600 flex items-center justify-center"
+                    >
+                      ×
+                    </button>
+                  </div>
+                );
+              })}
+
+              {/* Conversation Bubbles */}
+              {conversations.map((conversation) => {
+                const lastMessage = conversation.messages[conversation.messages.length - 1];
+                if (!lastMessage) return null;
+
+                const char1 = conversation.character1;
+                const char2 = conversation.character2;
+                const midX = (char1.x + char2.x) / 2;
+                const midY = (char1.y + char2.y) / 2 - 80;
+
+                return (
+                  <div
+                    key={`${char1.id}-${char2.id}`}
+                    className="absolute z-30 max-w-xs"
+                    style={{ left: Math.max(0, Math.min(CANVAS_WIDTH - 300, midX - 150)), top: Math.max(0, midY) }}
+                  >
+                    <div className="bg-white/95 backdrop-blur-sm border border-white/30 rounded-xl p-3 shadow-lg">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className={`font-mono font-bold text-sm ${
+                          getMbtiInfo(lastMessage.speaker)?.color
+                        }`}>
+                          {lastMessage.speaker}
+                        </span>
+                        <span className="text-xs text-gray-500">
+                          {conversation.currentTurn}/{MAX_CONVERSATION_TURNS}轮
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-800 leading-relaxed">
+                        {lastMessage.content}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </>
+          )}
+        </div>
+        
+        {/* Stats */}
+        {characters.length > 0 && (
+          <div className="mt-4 text-center text-sm text-gray-600">
+            <span className="inline-flex items-center gap-2">
+              <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+              角色数量: {characters.length}
+            </span>
+            <span className="mx-4 inline-flex items-center gap-2">
+              <span className="w-2 h-2 bg-yellow-400 rounded-full"></span>
+              进行中对话: {conversations.length}
+            </span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
