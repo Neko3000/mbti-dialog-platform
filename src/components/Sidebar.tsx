@@ -1,8 +1,8 @@
 'use client';
 
 interface SidebarProps {
-  activeModule: 'converter' | 'arena';
-  onModuleChange: (module: 'converter' | 'arena') => void;
+  activeModule: 'converter' | 'chatroom';
+  onModuleChange: (module: 'converter' | 'chatroom') => void;
 }
 
 const modules = [
@@ -13,8 +13,8 @@ const modules = [
     description: '智能转换沟通风格'
   },
   {
-    id: 'arena' as const,
-    name: '竞技场',
+    id: 'chatroom' as const,
+    name: '聊天室',
     icon: '🎭',
     description: '多人格对话模拟'
   }

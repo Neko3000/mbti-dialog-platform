@@ -29,7 +29,7 @@ const mbtiTypes = [
   { code: 'ESFP', name: '娱乐家', emoji: '🎭', color: 'from-yellow-400 to-orange-500' }
 ];
 
-export default function Arena() {
+export default function ChatRoom() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -74,7 +74,7 @@ export default function Arena() {
       
       const randomType = getRandomMBTIType(lastAIMessage?.mbtiType);
       
-      const response = await fetch('/api/arena', {
+      const response = await fetch('/api/chatroom', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -213,7 +213,7 @@ export default function Arena() {
         <div>
           <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
             <span>🎭</span>
-            竞技场
+            聊天室
           </h2>
           <p className="text-sm text-gray-600 mt-1">与多种MBTI人格进行动态对话</p>
         </div>
@@ -235,7 +235,7 @@ export default function Arena() {
               <div className="space-y-3">
                 <div className="text-6xl">💬</div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-2">欢迎来到MBTI竞技场</h3>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-2">欢迎来到MBTI聊天室</h3>
                   <p className="text-gray-600 text-sm">
                     发送一条消息开始对话，AI将以不同的MBTI人格与您互动
                   </p>

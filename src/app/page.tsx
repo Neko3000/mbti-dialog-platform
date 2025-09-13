@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import Sidebar from '@/components/Sidebar';
 import LanguageConverter from '@/components/LanguageConverter';
-import Arena from '@/components/Arena';
+import ChatRoom from '@/components/ChatRoom';
 
 export default function Home() {
-  const [activeModule, setActiveModule] = useState<'converter' | 'arena'>('converter');
+  const [activeModule, setActiveModule] = useState<'converter' | 'chatroom'>('converter');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-pink-50 flex">
@@ -36,7 +36,7 @@ export default function Home() {
               {activeModule === 'converter' ? (
                 <LanguageConverter />
               ) : (
-                <Arena />
+                <ChatRoom />
               )}
             </div>
           </div>
