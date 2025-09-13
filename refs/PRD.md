@@ -1,12 +1,12 @@
 
 
-# **MBTI 讲话对策集：产品需求文档 (PRD) V1.2**
+# **MBTI 讲话对策集：产品需求文档 (PRD) V1.3**
 
 ## **文档控制**
 
 | 属性 | 详情 |
 | :---- | :---- |
-| **版本** | 1.2 |
+| **版本** | 1.3 |
 | **状态** | 草案 |
 | **作者** | 高级产品经理 |
 | **最后更新日期** | 2024年5月21日 |
@@ -36,15 +36,15 @@
 
 ### **1.4 成功指标 (KPIs)**
 
-预先定义成功是任何产品发布的基石 6。鉴于本产品 V1.2 是一个纯前端、无用户账户的应用，其成功指标将聚焦于用户参与度和感知价值。
+预先定义成功是任何产品发布的基石 6。鉴于本产品 V1.3 是一个纯前端、无用户账户的应用，其成功指标将聚焦于用户参与度和感知价值。
 
 * **主要指标：**  
   * **转化率 (Transformation Rate):** 定义为“成功的文本转化次数 / 总会话数”。高转化率直接反映了用户对核心功能的积极使用和依赖。  
-  * **竞技场平均会话消息数 (Arena Average Messages per Session):** 定义为“竞技场模块中生成的总消息数（用户+AI）/ 总竞技场会话数”。该指标衡量了新功能的参与度和粘性。  
+  * **聊天室平均会话消息数 (Chat Room Average Messages per Session):** 定义为“聊天室模块中生成的总消息数（用户+AI）/ 总聊天室会话数”。  
+  * **竞技场平均启动次数 (Arena Average Engagements per Session):** 定义为“竞技场模块中启动的总模拟对话次数 / 总会话数”。  
 * **次要指标：**  
-  * **复制转化比 (Copy-to-Transformation Ratio):** 定义为“‘复制’按钮点击次数 / 成功的文本转化次数”。该指标可作为衡量生成文本实用性和质量的代理指标。高比率意味着用户认为生成的内容有价值，并计划在实际场景中使用。  
-  * **平均会话时长 (Average Session Duration):** 用户在应用上花费的平均时间。较长的会话时长可能表明用户在深入探索不同性格类型的沟通策略，参与度更高。  
-  * **定性反馈 (未来功能):** 在界面中加入一个简单的“这次转换有帮助吗？(👍/👎)”反馈机制，用以直接收集用户对转化质量的情感反馈，为后续的模型优化和提示词工程提供数据支持。
+  * **复制转化比 (Copy-to-Transformation Ratio):** 定义为“‘复制’按钮点击次数 / 成功的文本转化次数”。  
+  * **平均会话时长 (Average Session Duration):** 用户在应用上花费的平均时间。
 
 ---
 
@@ -97,12 +97,12 @@
   4. **应用输出 (转换后的表达):** “新营销活动提案：目标是在第三季度将用户活跃度提升 15%。计划包含三个明确步骤：1) 投放精准社交媒体广告 (预计 ROI 为 3:1)；2) 举办一场行业专家网络研讨会；3) 实施数据驱动的邮件跟进序列。申请 20 分钟会议，以审阅附件中的详细项目计划和预算。”  
   5. 吴彦祖利用这个结构化的输出，起草了一封逻辑清晰、目标明确的正式提案邮件。
 
-#### **2.2.3 场景 C：在动态聊天室中体验多种沟通风格 (竞技场)**
+#### **2.2.3 场景 C：在动态聊天室中体验多种沟通风格 (聊天室)**
 
 * **用户：** 吴彦祖，希望在与不同风格的团队成员开会前，体验和适应多种沟通视角。  
 * **情境：** 吴彦祖即将主持一个跨部门的头脑风暴会议，与会者性格各异。她希望通过模拟一个动态的讨论环境，来练习如何引导和回应不同类型的观点。  
 * **在应用中的操作流程：**  
-  1. 吴彦祖在侧边栏选择“竞技场”模块。  
+  1. 吴彦祖在侧边栏选择“聊天室”模块。  
   2. 她看到一个聊天界面，并输入了她的话题引导：“关于我们下一季度的营销策略，我有一个初步的想法，主要是围绕提升用户社区的活跃度。” 然后点击发送。  
   3. **系统立即响应：** 一个随机选择的人格（例如，ENTP）发出第一条消息，消息旁清晰地标注着“ENTP”。  
   4. **ENTP (AI):** “‘提升活跃度’这个概念很有趣，但我们能不能先挑战一下这个前提？为什么活跃度本身是我们的目标，而不是副产品？”  
@@ -115,16 +115,31 @@
   11. **INFP (AI):** “我感觉大家都在谈论计划和指标，但我们有没有想过，什么样的社区才能让用户真正地感觉到归属感和快乐呢？”  
   12. 吴彦祖继续在这个仿佛有多人参与的聊天室中输入信息，观察和适应不同 MBTI 人格如何基于相同的上下文做出截然不同的反应。这个过程帮助她为引导真实的、多视角的会议做好了准备。
 
+#### **2.2.4 场景 D：观察不同人格的自主互动 (竞技场)**
+
+* **用户：** 吴彦祖，一位团队负责人，对他团队中两位核心成员（一位务实的 ESTJ 和一位理想主义的 INFP）的潜在合作模式感到好奇。  
+* **情境：** 在分配一个重要项目前，吴彦祖希望在无干预的情况下，观察这两种截然不同的性格如何就一个问题进行互动，以预判潜在的沟通瓶颈。  
+* **在应用中的操作流程：**  
+  1. 吴彦祖在侧边栏选择“竞技场”模块。  
+  2. 他点击“添加角色”按钮，从列表中选择了“ESTJ”，一个代表 ESTJ 的 emoji 角色出现在可视化区域中。  
+  3. 他再次点击“添加角色”，选择了“INFP”，第二个 emoji 角色也出现了。  
+  4. 两个角色开始在屏幕上随机移动。  
+  5. 当两个角色靠近时，它们停下来，一个聊天气泡出现在 ESTJ 角色上方：“关于 Q3 的预算报告，你完成了吗？明天就是截止日期了。”  
+  6. INFP 角色上方出现回应：“我更多地是在思考 Q3 的整体愿景。我感觉目前的预算没有完全体现我们团队的创造潜力。”  
+  7. 对话以一问一答的形式继续进行，展示了两种风格的碰撞与融合。  
+  8. 对话达到 10 轮后，聊天气泡消失，两个角色分开并继续移动。  
+  9. 通过观察这次模拟，吴彦祖对如何更好地促进这两位同事之间的合作有了新的想法。
+
 ---
 
-## **3.0 功能性需求与特性 (V1.2)**
+## **3.0 功能性需求与特性 (V1.3)**
 
 本章节详细定义了产品的“什么”，即需要构建的具体功能和特性。每一项需求都以可测试、可验证的方式进行陈述 3。
 
 ### **3.1 核心架构与导航**
 
 * **FR-1.1:** UI **必须**包含一个固定的、垂直的侧边栏用于主导航。  
-* **FR-1.2:** 侧边栏**必须**包含至少两个可点击的选项（标签页）："语言转换器"和"竞技场"。  
+* **FR-1.2:** 侧边栏**必须**包含至少三个可点击的选项（标签页）："语言转换器"、"聊天室"和"竞技场"。  
 * **FR-1.3:** "语言转换器"**必须**是应用的默认显示模块。  
 * **FR-1.4:** 点击侧边栏选项**必须**能在主内容区域切换对应的功能模块，且切换过程应平滑无刷新。
 
@@ -134,34 +149,53 @@
   * **FR-2.1.1:** UI **必须**提供一个清晰、可交互的组件，用于选择 16 种 MBTI 人格类型中的一种。  
   * **FR-2.1.2:** 该选择机制**应当**具有视觉吸引力，例如使用卡片式网格或风格化的下拉菜单，以符合简约美学的设计风格 13。  
   * **FR-2.1.3:** 当用户选择一种人格类型后，界面**必须**明确地指示当前的选择状态（例如，高亮选中的卡片）。  
-  * **FR-2.1.4:** 选择人格类型后，界面**应当**出现一个简短、非侵入式的描述（1-2句话），总结其核心沟通偏好。这为用户提供了即时上下文，并强化了其选择的正确性（例如，对于 INTJ：“偏好直接、逻辑清晰和客观的沟通。请聚焦于‘为什么’和解决方案。” 4）。  
+  * **FR-2.1.4:** 选择人格类型后，界面**应当**出现一个简短、非侵入式的描述（1-2句话），总结其核心沟通偏好。  
 * **FR-2.2 (文本输入与转换):**  
   * **FR-2.2.1:** UI **必须**提供一个多行文本输入区域，供用户输入其原始信息。  
-  * **FR-2.2.2:** 文本输入区**应当**包含一个不显眼的字符计数器，为用户提供反馈，并设定一个最大字符数限制（例如 1000 字符），以便管理 API 调用成本和响应时间。  
-  * **FR-2.2.3:** **必须**存在一个标签清晰、易于点击的按钮（例如，“转换”、“优化表达”、“适配风格”）来触发 API 调用。  
-  * **FR-2.2.4:** 如果用户未选择目标人格或输入框为空，则“转换”按钮**必须**处于禁用状态，以防止无效的 API 请求。  
-  * **FR-2.2.5:** 在 Gemini API 处理请求期间，UI **必须**显示一个加载状态（例如，按钮上出现一个精细的加载动画或呼吸效果），向用户明确传达系统正在工作的反馈 15。  
+  * **FR-2.2.2:** 文本输入区**应当**包含一个不显眼的字符计数器，并设定一个最大字符数限制（例如 1000 字符）。  
+  * **FR-2.2.3:** **必须**存在一个标签清晰、易于点击的按钮来触发 API 调用。  
+  * **FR-2.2.4:** 如果用户未选择目标人格或输入框为空，则“转换”按钮**必须**处于禁用状态。  
+  * **FR-2.2.5:** 在 Gemini API 处理请求期间，UI **必须**显示一个加载状态 15。  
 * **FR-2.3 (转换结果展示):**  
-  * **FR-2.3.1:** Gemini API 返回的转换后文本**必须**显示在一个清晰的、只读的输出区域，该区域在视觉上应与输入区域有明显区分。  
-  * **FR-2.3.2:** UI **必须**包含一个“复制”按钮，当用户点击时，能将输出区域的全部文本复制到用户的剪贴板。  
-  * **FR-2.3.3:** “复制”按钮在成功执行复制操作后，**应当**提供视觉反馈（例如，按钮文本在 2 秒内变为“已复制！”）。  
-  * **FR-2.3.4:** UI **必须**包含一个“清空”或“重置”按钮，该按钮能一键清除输入文本、输出文本并取消已选的人格类型，方便用户快速开始一次新的转换。
+  * **FR-2.3.1:** Gemini API 返回的转换后文本**必须**显示在一个清晰的、只读的输出区域。  
+  * **FR-2.3.2:** UI **必须**包含一个“复制”按钮，能将输出区域的全部文本复制到用户的剪贴板。  
+  * **FR-2.3.3:** “复制”按钮在成功执行复制操作后，**应当**提供视觉反馈。  
+  * **FR-2.3.4:** UI **必须**包含一个“清空”或“重置”按钮。
 
-### **3.3 特性：竞技场 (Arena)**
+### **3.3 特性：聊天室 (Chat Room)**
 
 * **FR-3.1 (界面):**  
   * **FR-3.1.1:** UI **必须**呈现为一个标准的聊天室界面，包含一个用于显示对话历史的滚动区域和一个位于底部的文本输入框及“发送”按钮。  
-  * **FR-3.1.2:** 每一条由 AI 生成的消息**必须**在消息旁清晰地标示出其对应的 MBTI 人格类型（例如，通过文本标签 "ENTP" 或独特的头像/颜色）。  
+  * **FR-3.1.2:** 每一条由 AI 生成的消息**必须**在消息旁清晰地标示出其对应的 MBTI 人格类型。  
 * **FR-3.2 (对话逻辑):**  
   * **FR-3.2.1:** 当用户在聊天室内发送一条信息后，系统**必须**立即从 16 种 MBTI 类型中随机选择一种人格，并生成一条响应信息。  
-  * **FR-3.2.2:** 在任何一条 AI 信息（无论是对用户的直接响应还是自动生成的）发出后，系统**必须**启动一个 5 秒的计时器。计时结束后，系统**必须**再次从 16 种 MBTI 类型中随机选择一种人格，并生成一条新的信息以继续对话。  
-  * **FR-3.2.3:** AI 生成的每一条响应信息**必须**以上方所有已发生的对话（包括用户和所有 AI 的历史信息）作为上下文。  
+  * **FR-3.2.2:** 在任何一条 AI 信息发出后，系统**必须**启动一个 5 秒的计时器。计时结束后，系统**必须**再次从 16 种 MBTI 类型中随机选择一种人格，并生成一条新的信息。  
+  * **FR-3.2.3:** AI 生成的每一条响应信息**必须**以上方所有已发生的对话作为上下文。  
   * **FR-3.2.4:** 对话**必须**是无限次的，直到用户选择重置。  
 * **FR-3.3 (响应时序与中断):**  
   * **FR-3.3.1:** 用户的输入**必须**打断正在进行的 5 秒等待计时器。  
-  * **FR-3.3.2:** 在用户输入并发送新信息后，系统**必须**立即触发一次随机人格的响应（遵循 FR-3.2.1），之后再重新开始 5 秒的计时周期。  
+  * **FR-3.3.2:** 在用户发送新信息后，系统**必须**立即触发一次随机人格的响应，之后再重新开始 5 秒的计时周期。  
 * **FR-3.4 (控制):**  
-  * **FR-3.4.1:** UI **必须**提供一个“开始新对话”按钮，点击后能清空当前聊天记录，让用户可以重新发起一个话题。
+  * **FR-3.4.1:** UI **必须**提供一个“开始新对话”按钮，点击后能清空当前聊天记录。
+
+### **3.4 特性：竞技场 (Arena)**
+
+* **FR-4.1 (界面与设置):**  
+  * **FR-4.1.1:** UI **必须**呈现为一个可视化的活动区域。  
+  * **FR-4.1.2:** UI **必须**提供一个控件，允许用户从 16 种 MBTI 人格中选择并手动添加入活动区域。  
+  * **FR-4.1.3:** 每个被添加的人格**必须**在活动区域内以一个可视化的角色图像代表。  
+  * **FR-4.1.4:** 角色的可视化图像**应当**使用统一的 emoji 样式。  
+* **FR-4.2 (角色行为):**  
+  * **FR-4.2.1:** 区域内的角色**必须**沿预设或随机的轨迹自主移动。  
+  * **FR-4.2.2:** 当任意两个角色的距离小于预设阈值时，这两个角色**必须**停止移动并彼此面对。  
+* **FR-4.3 (对话模拟):**  
+  * **FR-4.3.1:** 角色靠近**必须**触发一次自动生成的、随机主题的对话。  
+  * **FR-4.3.2:** 对话**必须**以一问一答的形式进行。  
+  * **FR-4.3.3:** 对话**必须**持续最多 10 轮（即 10 个问题和 10 个回答）。  
+  * **FR-4.3.4:** 对话内容**必须**通过 AI 生成，并反映对话双方的人格特质。  
+  * **FR-4.3.5:** 对话内容**应当**以可视化的形式（如聊天气泡）显示在角色上方。  
+* **FR-4.4 (交互结束):**  
+  * **FR-4.4.1:** 对话达到最大轮数后，角色**必须**分开并恢复自主移动。
 
 ---
 
@@ -175,36 +209,41 @@
 
 ### **4.2 语言转换器系统提示词架构**
 
-发送给 API 的提示词将根据用户的选择动态构建，其结构如下：
+1. **角色定义:** 你是一位精通 MBTI 人格框架的沟通专家。  
+2. **目标档案:** 沟通的目标人格是。  
+3. **核心指令:** 请根据其沟通风格，重写以下用户输入的信息。保留原始信息的核心意义，但调整其语气、结构和措辞。不要添加新信息。  
+4. **用户输入:** 用户原文：'\[用户输入的文本\]'  
+5. **输出约束:** 你的回答必须且仅包含重写后的文本。
 
-1. **角色定义 (Role Definition):** 你是一位精通 MBTI 人格框架的沟通专家。你的任务是根据特定的性格类型偏好，重写用户提供的信息，使其更易于被目标对象所接受。  
-2. **目标档案 (Target Profile):** 沟通的目标人格是。以下是该类型的核心沟通风格总结：。  
-3. **核心指令 (Core Instruction):** 请根据上述沟通风格，重写以下用户输入的信息。你需要保留原始信息的核心意义和意图，但调整其语气、结构和措辞。不要添加原文中未包含的新信息，仅做转述和优化。  
-4. **用户输入 (User's Message):** 用户原文：'\[用户输入的文本\]'  
-5. **输出约束 (Output Constraint):** 你的回答必须且仅包含重写后的文本，不要附加任何额外的评论、解释或前缀。
+### **4.3 聊天室系统提示词架构**
 
-### **4.3 竞技场系统提示词架构**
+1. **角色定义:** 你正在一个多人聊天室中进行角色扮演。  
+2. **人格档案:** 在这一轮发言中，你的人格是。  
+3. **核心指令:** 下方是到目前为止的完整对话历史。请阅读全部内容，然后作为 的身份，生成你的下一句对话。你的回应必须自然地接续上一条消息。  
+4. **对话历史:** \[此处插入完整的对话记录\]  
+5. **输出约束:** 你的回答必须且仅包含你所扮演角色的对话内容本身。
 
-竞技场模块的提示词需要在每次调用时动态分配人格，并基于完整的聊天上下文进行响应。
+### **4.4 竞技场系统提示词架构**
 
-1. **角色定义 (Role Definition):** 你正在一个多人聊天室中进行角色扮演。你的任务是为本次发言完全沉浸并以特定的人格身份进行回应。  
-2. **人格档案 (Personality Profile):** 在这一轮发言中，你的人格是。以下是你在此次对话中必须严格遵守的核心沟通风格与行为模式：\[16, 17, 18\]  
-3. **核心指令 (Core Instruction):** 下方是到目前为止的完整对话历史。请阅读全部内容，然后作为 的身份，生成你的下一句对话。你的回应必须自然地接续上一条消息，并体现出你被分配到的人格特征。  
-4. **对话历史 (Conversation History):** \`\`  
-5. **输出约束 (Output Constraint):** 你的回答必须且仅包含你作为 所说的对话内容本身。不要添加任何角色名称前缀（如“:”）、解释或元评论。
+1. **角色定义:** 你是一个 MBTI 对话模拟器。  
+2. **情境设定:** 人格 和 正在进行对话。  
+3. **核心指令与上下文:**  
+   * **（对话开始）:** 请你作为，根据其人格特点，向 提出一个随机的、开启对话的问题。  
+   * **（对话继续）:** 以下是 和 之间的对话历史：\[History\]。现在轮到 发言。请根据其人格特点和对话上下文，生成下一句回应。  
+4. **输出约束:** 你的回答必须且仅包含对话内容本身。
 
-### **4.4 MBTI 沟通提示词矩阵 (示例)**
+### **4.5 MBTI 沟通提示词矩阵 (示例)**
 
-此矩阵是实现产品核心功能的基石，它将所有关于 MBTI 沟通风格的研究成果，系统化地编码为可操作的 AI 指令。它将成为开发人员实现提示词逻辑的权威指南，也是未来进行测试和优化的基础。
+此矩阵是实现产品核心功能的基石，它将所有关于 MBTI 沟通风格的研究成果，系统化地编码为可操作的 AI 指令。
 
 | MBTI 类型 | 核心沟通价值观 | AI 应模仿/使用的关键词 | AI 应避免/移除的关键词 | Gemini 系统提示词片段 |
 | :---- | :---- | :---- | :---- | :---- |
-| **INTJ** | 逻辑与战略效率 | 客观、逻辑、直达重点、洞察、挑战、成本效益、后果、战略 4 | 情感诉求、“我感觉”、闲聊、模糊不清、反复论证、个人化 4 | 将文本重写得直接、有逻辑，并聚焦于客观的解决方案。移除所有情感化语言、社交客套话和主观陈述。清晰地构建论点，并立即切入主题。将其构建成一份富有洞察力的分析或一项战略性提议。 |
-| **INFP** | 个人意义与和谐 | 鼓励、肯定、积极的、宏大愿景、个人意义、价值观、感受、温和的 5 | 苛刻的批评、命令式语气、过于关注细节、非个人化、冷漠的 5 | 将文本重写得充满鼓励、肯定和温和。使用积极的框架，聚焦于宏大愿景和个人意义。承认并尊重接收者的价值观和感受。使用柔和、非对抗性的语言，避免直接、苛刻的批评。目标是维护和谐并激发成长。 |
-| **ESTJ** | 结构、事实与责任 | 清晰的指令、事实、数据、计划、步骤、责任、效率、可行的 11 | 模糊的想法、抽象理论、情感论证、不切实际、绕圈子 11 | 将文本重写为一份结构清晰、基于事实的行动计划。明确定义目标、步骤和预期结果。使用直接、果断的语言，避免任何模糊不清或纯粹基于情感的论述。确保每一句话都服务于推动任务高效完成。 |
-| **ENTP** | 探索可能性与智力辩论 | 可能性、视角、辩论、创新、逻辑、大局观、挑战现状、替代方案 16 | 情绪化、个人攻击、墨守成规、细节执行、不容置疑的结论 16 | 将文本重写为开放性的、激发讨论的风格。鼓励对不同可能性的探索，并以逻辑和理性的方式呈现观点。可以适度引入挑战性的视角，但避免使用个人化或情绪化的语言。聚焦于宏大的概念和创新的解决方案，而不是具体的执行细节。 |
+| **INTJ** | 逻辑与战略效率 | 客观、逻辑、直达重点、洞察、挑战、成本效益、后果、战略 4 | 情感诉求、“我感觉”、闲聊、模糊不清、反复论证、个人化 4 | 将文本重写得直接、有逻辑，并聚焦于客观的解决方案。移除所有情感化语言、社交客套话和主观陈述。清晰地构建论点，并立即切入主题。 |
+| **INFP** | 个人意义与和谐 | 鼓励、肯定、积极的、宏大愿景、个人意义、价值观、感受、温和的 5 | 苛刻的批评、命令式语气、过于关注细节、非个人化、冷漠的 5 | 将文本重写得充满鼓励、肯定和温和。使用积极的框架，聚焦于宏大愿景和个人意义。承认并尊重接收者的价值观和感受。 |
+| **ESTJ** | 结构、事实与责任 | 清晰的指令、事实、数据、计划、步骤、责任、效率、可行的 11 | 模糊的想法、抽象理论、情感论证、不切实际、绕圈子 11 | 将文本重写为一份结构清晰、基于事实的行动计划。明确定义目标、步骤和预期结果。使用直接、果断的语言。 |
+| **ENTP** | 探索可能性与智力辩论 | 可能性、视角、辩论、创新、逻辑、大局观、挑战现状、替代方案 17 | 情绪化、个人攻击、墨守成规、细节执行、不容置疑的结论 17 | 将文本重写为开放性的、激发讨论的风格。鼓励对不同可能性的探索，并以逻辑和理性的方式呈现观点。 |
 
-(注：完整的 16 种人格类型的矩阵将作为附录提供给开发团队，其内容将综合所有相关研究资料 4 进行填充。)  
+*(注：完整的 16 种人格类型的矩阵将作为附录提供给开发团队。)*  
 ---
 
 ## **5.0 用户体验 (UX) 与用户界面 (UI) 设计**
@@ -213,119 +252,99 @@
 
 ### **5.1 设计哲学：“美学极简主义”**
 
-* **核心原则：**  
-  * **清晰至上：** 界面上的每一个元素都必须服务于核心用户流程。任何非必要的装饰或功能都将被移除。  
-  * **慷慨的留白：** 利用负空间来营造一个平静、专注、无干扰的使用环境。  
-  * **优雅的字体：** 选择一款清晰、现代且高度易读的字体作为设计的基石。  
-  * **精妙的动画：** 微交互和过渡效果应平滑、细腻，旨在提供反馈而非分散用户注意力。  
-  * **克制的调色板：** 采用简单、高级的配色方案（例如，单色系搭配一个强调色），以强化极简主义的美学感受。  
+* **核心原则：** 清晰至上、慷慨的留白、优雅的字体、精妙的动画、克制的调色板。  
 * **设计灵感：** 整体设计风格应从 Dribbble 等平台上展示的现代、简洁的 Web 应用界面中汲取灵感 13。
 
 ### **5.2 用户流程图**
 
-一个可视化的用户流程图对于理解用户从进入到完成目标的完整路径至关重要，它有助于识别潜在的摩擦点并进行优化 15。
+一个可视化的用户流程图对于理解用户从进入到完成目标的完整路径至关重要 15。
 
 1. **\[开始\]** 用户访问应用。  
-2. 用户通过侧边栏选择功能模块 ("语言转换器" 或 "竞技场")。  
-3. **流程 A: 语言转换器**  
-   1. 用户从人格选择器中选择一个目标 MBTI 类型。 \-\> 界面更新，显示当前选择。  
-   2. 用户在输入框中键入或粘贴原始信息。  
-   3. 用户点击“转换”按钮。 \-\> 按钮进入加载状态。  
-   4. **(API 调用)** 应用向 Gemini API 发送请求。  
-   5. **(API 响应)** 应用接收到转换后的文本。 \-\> 加载状态结束。  
-   6. 输出区域被填充上新文本。  
-   7. 用户点击“复制”按钮。 \-\> 文本被复制到剪贴板，并显示成功反馈。  
-   8. **\[结束 A\]** 用户离开页面，或点击“清空”按钮开始新的流程。  
-4. **流程 B: 竞技场**  
-   1. 用户在输入框中输入引导话题并发送。  
-   2. **(API 调用)** 应用向 Gemini API 发送包含话题和随机 MBTI 人格的请求。  
-   3. **(API 响应)** AI 立即返回第一条消息，并显示其人格。  
-   4. **\[循环开始\]**  
-   5. 系统启动 5 秒计时器。  
-   6. 用户可以随时输入新消息。如果用户输入，则中断计时器，返回步骤 2，并立即获得响应。  
-   7. 如果计时器结束，系统触发新的 API 调用（随机人格，完整上下文）。  
-   8. AI 返回新消息，并显示其人格。  
-   9. 返回步骤 5。  
-   10. **\[循环结束\]** 用户点击“开始新对话”按钮，清空聊天记录并返回步骤 1。
+2. 用户通过侧边栏选择功能模块 ("语言转换器", "聊天室", 或 "竞技场")。  
+3. **流程 A: 语言转换器** (如 V1.2 所述)  
+4. **流程 B: 聊天室** (如 V1.2 所述)  
+5. **流程 C: 竞技场**  
+   1. 用户点击“添加角色”并选择一个 MBTI 类型。  
+   2. 一个角色出现在可视化区域。用户可重复此步骤添加更多角色。  
+   3. 角色开始自主移动。  
+   4. 当两个角色靠近时，触发对话模拟。  
+   5. 对话在角色上方以气泡形式显示。  
+   6. 对话结束后，角色恢复移动。  
+   7. 用户可随时“重置”竞技场。
 
 ### **5.3 线框图与界面描述**
 
 * **主界面布局:**  
-  * 采用两栏式布局。  
-  * **左侧栏 (导航):** 一个窄的、固定的垂直边栏，包含 "语言转换器" 和 "竞技场" 的图标和/或文本标签。当前活动的模块有明显的高亮状态。  
-  * **右侧栏 (主内容区):** 占据页面的主要部分，根据左侧栏的选择动态显示相应模块的 UI。  
-* **"语言转换器" 模块界面:**  
-  * 一个 4x4 的卡片网格，每张卡片代表一种人格类型。  
-  * 下方是输入/输出区域，包含原始信息输入框、"转换"按钮、结果显示框以及"复制"和"清空"按钮。  
+  * **左侧栏 (导航):** 一个窄的、固定的垂直边栏，包含 "语言转换器"、"聊天室" 和 "竞技场" 的图标和/或文本标签。  
+  * **右侧栏 (主内容区):** 根据左侧栏的选择动态显示相应模块的 UI。  
+* **"语言转换器" 模块界面:** (如 V1.2 所述)  
+* **"聊天室" 模块界面:** (如 V1.2 所述)  
 * **"竞技场" 模块界面:**  
-  * 顶部是一个标题栏，仅显示 "竞技场"。旁边有一个“开始新对话”的按钮。  
-  * 中间是对话显示区，采用气泡样式区分用户和 AI 的消息，支持垂直滚动。每条 AI 消息的气泡旁或上方，必须清晰标注发出该消息的 MBTI 人格类型。  
-  * 底部是一个单行文本输入框和一个“发送”按钮。
+  * 顶部是一个控制栏，包含“添加角色”和“重置”按钮。  
+  * 主体部分是一个宽敞的、可视化的空白区域，供角色移动和互动。  
+  * 当用户点击“添加角色”时，会弹出一个包含 16 种 MBTI 类型的选择器。
 
 ---
 
 ## **6.0 非功能性需求 (NFRs)**
 
-非功能性需求定义了系统的质量属性。对于一个纯客户端应用，这些需求对于确保专业、可靠的用户体验至关重要 25。
+非功能性需求定义了系统的质量属性。对于一个纯客户端应用，这些需求对于确保专业、可靠的用户体验至关重要 20。
 
 ### **6.1 性能**
 
-* **NFR-1.1 (加载时间):** 在标准宽带连接下，应用的首次加载时间**必须**在 2 秒以内。这将通过 Next.js 的代码分割、静态生成等优化手段实现。  
-* **NFR-1.2 (响应速度):** 用户的 UI 交互（如点击按钮、输入文字）**必须**提供即时反馈（响应时间 \< 100毫秒）。  
-* **NFR-1.3 (API 延迟):** 尽管 Gemini API 的响应时间是外部依赖，但 UI **必须**优雅地处理等待周期（见 FR-2.2.5），确保用户感知性能的流畅。
+* **NFR-1.1 (加载时间):** 应用的首次加载时间**必须**在 2 秒以内。  
+* **NFR-1.2 (响应速度):** 用户的 UI 交互**必须**提供即时反馈（\< 100毫秒）。  
+* **NFR-1.3 (API 延迟):** UI **必须**优雅地处理 API 等待周期。
 
 ### **6.2 可用性与无障碍性**
 
 * **NFR-2.1 (直观性):** 新用户应能在无任何指引的情况下，在 30 秒内理解并使用应用的核心功能。  
-* **NFR-2.2 (无障碍性):** 应用**必须**符合 Web 内容无障碍指南 (WCAG) 2.1 AA 级别标准。这包括完整的键盘可导航性、足够的色彩对比度以及对屏幕阅读器的支持（通过 ARIA 标签）。
+* **NFR-2.2 (无障碍性):** 应用**必须**符合 WCAG 2.1 AA 级别标准。
 
 ### **6.3 兼容性**
 
-* **NFR-3.1 (浏览器支持):** 应用**必须**在以下主流常青浏览器的最新两个版本上正常运行并保持预期布局：Google Chrome、Mozilla Firefox、Apple Safari 和 Microsoft Edge。  
-* **NFR-3.2 (响应式设计):** 应用**必须**是完全响应式的，能够在桌面、平板和移动设备等常见断点下提供良好的使用体验。
+* **NFR-3.1 (浏览器支持):** 应用**必须**在主流常青浏览器的最新两个版本上正常运行。  
+* **NFR-3.2 (响应式设计):** 应用**必须**是完全响应式的。
 
 ### **6.4 安全性 (客户端)**
 
-用户指定的“纯前端方案”在处理需要保密的 API 密钥时存在一个重大的安全隐患。任何存储在客户端 JavaScript 代码中的密钥都可以被轻易地从网页源代码中提取，这将导致密钥被滥用，产生不可预估的成本和安全风险。因此，必须对原架构进行调整。
-
-* **NFR-4.1 (API 密钥管理):** Gemini API 密钥**绝不能**在客户端暴露。Next.js 应用**必须**使用其 API 路由 (API Route) 功能。该功能本质上是一个 Serverless 函数，将作为前端和 Gemini API 之间的安全代理。前端应用将调用这个内部的 API 路由，然后由该路由在服务端环境中使用存储在环境变量中的密钥，安全地调用 Gemini API。这是对原始架构至关重要的修正。  
-* **NFR-4.2 (输入净化):** 所有用户输入都应被视为不可信。尽管在此应用场景下风险较低，但仍应执行基本的输入净化，以防止潜在的注入攻击。
+* **NFR-4.1 (API 密钥管理):** Gemini API 密钥**绝不能**在客户端暴露。**必须**使用 Next.js API 路由作为安全代理。  
+* **NFR-4.2 (输入净化):** 应执行基本的输入净化。
 
 ---
 
-## **7.0 V1.2 发布范围与未来路线图**
+## **7.0 V1.3 发布范围与未来路线图**
 
-清晰地界定发布范围是防止“范围蔓延”并确保项目按时、聚焦交付的最有效方法之一 1。同时，为产品的未来发展提供一个清晰的愿景，也能更好地指导长期决策 30。
+清晰地界定发布范围是防止“范围蔓延”并确保项目按时、聚焦交付的最有效方法之一 1。
 
-### **7.1 本次发布 (V1.2) 范围之内**
+### **7.1 本次发布 (V1.3) 范围之内**
 
-* 第 3.0 章节中列出的所有功能性需求，包括"语言转换器"和"竞技场"两个模块。  
-* 为全部 16 种 MBTI 类型填充完整的 AI 提示词矩阵，供两个模块使用。  
+* 第 3.0 章节中列出的所有功能性需求，包括"语言转换器"、"聊天室"和新的"竞技场"三个模块。  
+* 为全部 16 种 MBTI 类型填充完整的 AI 提示词矩阵。  
 * 一个带侧边栏导航的、完全响应式的单页面 Web 应用。  
 * 通过 Next.js API 路由实现安全的 API 密钥处理。  
-* 根据用户查询的语言，应用界面和 AI 提示词将以中文为默认语言。
+* 应用界面和 AI 提示词将以中文为默认语言。
 
-### **7.2 明确排除在 V1.2 范围之外**
+### **7.2 明确排除在 V1.3 范围之外**
 
-* **用户账户与认证：** 无需登录或创建用户个人资料。  
-* **对话历史记录：** 应用是无状态的，每次转换或对话都是独立的。  
-* **多语言支持：** V1.2 仅支持中文。  
-* **语气/风格调整器：** 除了目标 MBTI 类型外，不提供“更正式”、“更随意”等风格选项。  
-* **原生移动应用：** 仅作为 Web 应用发布。  
-* **后端数据库：** 不存储任何用户数据。
+* 用户账户与认证。  
+* 对话历史记录。  
+* 多语言支持。  
+* 语气/风格调整器。  
+* 原生移动应用。  
+* 后端数据库。
 
 ### **7.3 未来可能的增强功能 (产品路线图)**
 
-* **V1.3 \- “教育家”版本:**  
-  * **特性：** “解释变化”功能 \- 在语言转换器中提供一个选项，让用户可以看到 AI *为什么*这样重写文本，高亮关键修改并将其与目标 MBTI 的沟通偏好相关联（呼应 2.2.3 节的“脚手架”概念）。  
-  * **特性：** 用户反馈机制 (👍/👎)，用于收集关于转化和对话质量的数据，以迭代优化提示词。  
-* **V1.4 \- “竞技场 Pro”版本:**  
-  * **特性：** 允许用户在竞技场中手动选择想要对话的 MBTI 人格，或者选择一组特定的人格参与对话。  
-  * **特性：** 引入场景化对话，例如“进行一次绩效评估”、“讨论一个项目分歧”等预设场景，让练习更有针对性。  
+* **V1.4 \- “教育家”版本:**  
+  * **特性：** 在语言转换器中增加“解释变化”功能。  
+  * **特性：** 增加用户反馈机制 (👍/👎)。  
+* **V1.5 \- “高级模拟”版本:**  
+  * **特性 (聊天室 Pro):** 允许用户在聊天室中手动选择想要对话的 MBTI 人格。  
+  * **特性 (竞技场 Pro):** 允许用户为竞技场中的对话设置预设主题；支持两个以上角色的群组互动。  
 * **V2.0 \- “专业版”:**  
-  * **特性：** 引入用户账户系统，以保存转换历史和竞技场对话记录。  
-  * **特性：** 可自定义的“沟通对象”档案，方便用户保存特定的沟通目标（例如，“我的老板 \- ESTJ”，“我的伴侣 \- INFP”）。  
-  * **特性：** 通过浏览器扩展，与 Slack、邮件客户端等平台进行集成。
+  * **特性：** 引入用户账户系统，以保存历史记录和自定义档案。  
+  * **特性：** 与 Slack、邮件客户端等平台进行集成。
 
 #### **Works cited**
 
@@ -344,18 +363,12 @@
 13. Minimal Web App \- Dribbble, accessed September 10, 2025, [https://dribbble.com/tags/minimal-web-app](https://dribbble.com/tags/minimal-web-app)  
 14. Minimalist App Design \- Dribbble, accessed September 10, 2025, [https://dribbble.com/tags/minimalist-app-design](https://dribbble.com/tags/minimalist-app-design)  
 15. User flow map: 15 tips for best UX design \- FlowMapp, accessed September 10, 2025, [https://www.flowmapp.com/features/user-flow-map-15-tips-for-best-ux-design](https://www.flowmapp.com/features/user-flow-map-15-tips-for-best-ux-design)  
-16. ENTP Communication \- Personality Central, accessed September 10, 2025, [https://personality-central.com/personality\_types/entp-communication/](https://personality-central.com/personality_types/entp-communication/)  
-17. ISFJ Communication \- Personality Central, accessed September 10, 2025, [https://personality-central.com/personality\_types/isfj-communication/](https://personality-central.com/personality_types/isfj-communication/)  
-18. ESTP Communication \- Personality Central, accessed September 10, 2025, [https://personality-central.com/personality\_types/estp-communication/](https://personality-central.com/personality_types/estp-communication/)  
-19. personality-central.com, accessed September 10, 2025, [https://personality-central.com/personality\_types/intj-communication/\#:\~:text=INTJ%20Communication%3A%20Communicating%20with%20them\&text=When%20you%20first%20communicate%20with,task%20as%20effectively%20and%20efficiently.](https://personality-central.com/personality_types/intj-communication/#:~:text=INTJ%20Communication%3A%20Communicating%20with%20them&text=When%20you%20first%20communicate%20with,task%20as%20effectively%20and%20efficiently.)  
-20. ESTP Personality Type: Entrepreneur MBTI (2024 Guide) \- HiPeople, accessed September 10, 2025, [https://www.hipeople.io/glossary/estp-personality-type-mbti](https://www.hipeople.io/glossary/estp-personality-type-mbti)  
-21. 15 Powerful User Flow Examples To Upgrade Your UX | Userflow Blog, accessed September 10, 2025, [https://www.userflow.com/blog/15-user-flow-examples-the-ultimate-guide-on-the-user-journey](https://www.userflow.com/blog/15-user-flow-examples-the-ultimate-guide-on-the-user-journey)  
-22. User Flow Analysis \- A Step-by-Step Guide 2025 \- UXCam, accessed September 10, 2025, [https://uxcam.com/blog/user-flow-analysis/](https://uxcam.com/blog/user-flow-analysis/)  
-23. Nonfunctional Requirements: Examples, Types and Approaches \- AltexSoft, accessed September 10, 2025, [https://www.altexsoft.com/blog/non-functional-requirements/](https://www.altexsoft.com/blog/non-functional-requirements/)  
-24. NFRs: What is Non Functional Requirements (Example & Types) \- BrowserStack, accessed September 10, 2025, [https://www.browserstack.com/guide/non-functional-requirements-examples](https://www.browserstack.com/guide/non-functional-requirements-examples)  
-25. Functional and Non-Functional Requirements: The Ultimate Checklist with Examples \- Medium, accessed September 10, 2025, [https://medium.com/@growsolutions/functional-and-non-functional-requirements-the-ultimate-checklist-with-examples-cde16aba33d7](https://medium.com/@growsolutions/functional-and-non-functional-requirements-the-ultimate-checklist-with-examples-cde16aba33d7)  
-26. Non Functional Requirements Checklist \- DOOR3, accessed September 10, 2025, [https://www.door3.com/blog/non-functional-requirements-checklist](https://www.door3.com/blog/non-functional-requirements-checklist)  
-27. Complete Guide to Non-Functional Testing: 51 Types, Examples & Applications \- TestRail, accessed September 10, 2025, [https://www.testrail.com/blog/non-functional-testing/](https://www.testrail.com/blog/non-functional-testing/)  
-28. 8 Best Product Roadmap Examples for SaaS Startups, accessed September 10, 2025, [https://www.featurebase.app/blog/product-roadmap-examples](https://www.featurebase.app/blog/product-roadmap-examples)  
-29. Product Roadmap Types & Examples for Your Next Project \- Adobe for Business, accessed September 10, 2025, [https://business.adobe.com/blog/basics/learn-about-product-roadmap-examples](https://business.adobe.com/blog/basics/learn-about-product-roadmap-examples)  
-30. Product Roadmap Guide: What is it & How to Create One \- Atlassian, accessed September 10, 2025, [https://www.atlassian.com/agile/product-management/product-roadmaps](https://www.atlassian.com/agile/product-management/product-roadmaps)
+16. ISFJ Communication \- Personality Central, accessed September 10, 2025, [https://personality-central.com/personality\_types/isfj-communication/](https://personality-central.com/personality_types/isfj-communication/)  
+17. ENTP Communication \- Personality Central, accessed September 10, 2025, [https://personality-central.com/personality\_types/entp-communication/](https://personality-central.com/personality_types/entp-communication/)  
+18. 15 Powerful User Flow Examples To Upgrade Your UX | Userflow Blog, accessed September 10, 2025, [https://www.userflow.com/blog/15-user-flow-examples-the-ultimate-guide-on-the-user-journey](https://www.userflow.com/blog/15-user-flow-examples-the-ultimate-guide-on-the-user-journey)  
+19. User Flow Analysis \- A Step-by-Step Guide 2025 \- UXCam, accessed September 10, 2025, [https://uxcam.com/blog/user-flow-analysis/](https://uxcam.com/blog/user-flow-analysis/)  
+20. Nonfunctional Requirements: Examples, Types and Approaches \- AltexSoft, accessed September 10, 2025, [https://www.altexsoft.com/blog/non-functional-requirements/](https://www.altexsoft.com/blog/non-functional-requirements/)  
+21. NFRs: What is Non Functional Requirements (Example & Types) \- BrowserStack, accessed September 10, 2025, [https://www.browserstack.com/guide/non-functional-requirements-examples](https://www.browserstack.com/guide/non-functional-requirements-examples)  
+22. Functional and Non-Functional Requirements: The Ultimate Checklist with Examples \- Medium, accessed September 10, 2025, [https://medium.com/@growsolutions/functional-and-non-functional-requirements-the-ultimate-checklist-with-examples-cde16aba33d7](https://medium.com/@growsolutions/functional-and-non-functional-requirements-the-ultimate-checklist-with-examples-cde16aba33d7)  
+23. Non Functional Requirements Checklist \- DOOR3, accessed September 10, 2025, [https://www.door3.com/blog/non-functional-requirements-checklist](https://www.door3.com/blog/non-functional-requirements-checklist)  
+24. Complete Guide to Non-Functional Testing: 51 Types, Examples & Applications \- TestRail, accessed September 10, 2025, [https://www.testrail.com/blog/non-functional-testing/](https://www.testrail.com/blog/non-functional-testing/)
