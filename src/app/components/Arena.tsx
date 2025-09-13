@@ -15,7 +15,7 @@ interface Character {
 interface Conversation {
   character1: Character;
   character2: Character;
-  messages: { speaker: string; content: string; turn: number }[];
+  messages: { speaker: string; content: string; turn: number; displayedContent: string }[];
   currentTurn: number;
   isActive: boolean;
   timeRemaining: number;
@@ -46,6 +46,7 @@ export default function Arena() {
   const [selectedMbtiType, setSelectedMbtiType] = useState<string | null>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null);
+  const streamingTimeouts = useRef<Map<string, NodeJS.Timeout>>(new Map());
 
   // Arena settings
   const CANVAS_WIDTH = 800;
@@ -82,6 +83,128 @@ export default function Arena() {
     if (animationRef.current !== null) {
       cancelAnimationFrame(animationRef.current);
     }
+    // Clear all streaming timeouts
+    streamingTimeouts.current.forEach(timeout => clearTimeout(timeout));
+    streamingTimeouts.current.clear();
+  };
+
+  // Streaming text effect
+  const startStreamingText = (conversationId: string, messageIndex: number, fullText: string) => {
+    const timeoutKey = `${conversationId}-${messageIndex}`;
+    
+    // Clear any existing timeout
+    const existingTimeout = streamingTimeouts.current.get(timeoutKey);
+    if (existingTimeout) {
+      clearTimeout(existingTimeout);
+    }
+
+    let currentIndex = 0;
+    const streamInterval = 50; // milliseconds per character
+
+    const streamNextChar = () => {
+      if (currentIndex <= fullText.length) {
+        const displayedText = fullText.substring(0, currentIndex);
+        
+        setConversations(prev => prev.map(conv => {
+          if (`${conv.character1.id}-${conv.character2.id}` === conversationId) {
+            const updatedMessages = [...conv.messages];
+            if (updatedMessages[messageIndex]) {
+              updatedMessages[messageIndex] = {
+                ...updatedMessages[messageIndex],
+                displayedContent: displayedText
+              };
+            }
+            return { ...conv, messages: updatedMessages };
+          }
+          return conv;
+        }));
+
+        currentIndex++;
+        
+        if (currentIndex <= fullText.length) {
+          const timeout = setTimeout(streamNextChar, streamInterval);
+          streamingTimeouts.current.set(timeoutKey, timeout);
+        } else {
+          streamingTimeouts.current.delete(timeoutKey);
+        }
+      }
+    };
+
+    streamNextChar();
+  };
+
+  // Calculate bubble position with collision avoidance
+  const calculateBubblePosition = (speaker: Character, conversations: Conversation[], currentConvId: string) => {
+    const bubbleWidth = 280;
+    const bubbleHeight = 100;
+    let bubbleX = speaker.x + CHARACTER_SIZE / 2 - bubbleWidth / 2;
+    let bubbleY = speaker.y - bubbleHeight + 30; // Move bubble closer to character
+    
+    // Ensure bubble stays within canvas bounds
+    bubbleX = Math.max(10, Math.min(CANVAS_WIDTH - bubbleWidth - 10, bubbleX));
+    bubbleY = Math.max(10, bubbleY);
+    
+    // If bubble would be too high, place it below the character
+    if (bubbleY < 10) {
+      bubbleY = speaker.y + CHARACTER_SIZE + 5;
+    }
+
+    // Check for collisions with other conversation bubbles
+    let attempts = 0;
+    const maxAttempts = 5;
+    const offsetStep = 30;
+
+    while (attempts < maxAttempts) {
+      let hasCollision = false;
+      
+      for (const otherConv of conversations) {
+        const otherConvId = `${otherConv.character1.id}-${otherConv.character2.id}`;
+        if (otherConvId === currentConvId) continue;
+        
+        const lastMessage = otherConv.messages[otherConv.messages.length - 1];
+        if (!lastMessage) continue;
+
+        const otherSpeaker = lastMessage.speaker === otherConv.character1.mbtiType ? 
+          otherConv.character1 : otherConv.character2;
+        
+        // Calculate other bubble position (simplified)
+        let otherBubbleX = otherSpeaker.x + CHARACTER_SIZE / 2 - bubbleWidth / 2;
+        let otherBubbleY = otherSpeaker.y - bubbleHeight + 30;
+        otherBubbleX = Math.max(10, Math.min(CANVAS_WIDTH - bubbleWidth - 10, otherBubbleX));
+        otherBubbleY = Math.max(10, otherBubbleY);
+        if (otherBubbleY < 10) {
+          otherBubbleY = otherSpeaker.y + CHARACTER_SIZE + 5;
+        }
+
+        // Check if bubbles overlap
+        if (bubbleX < otherBubbleX + bubbleWidth &&
+            bubbleX + bubbleWidth > otherBubbleX &&
+            bubbleY < otherBubbleY + bubbleHeight &&
+            bubbleY + bubbleHeight > otherBubbleY) {
+          hasCollision = true;
+          break;
+        }
+      }
+
+      if (!hasCollision) break;
+
+      // Try different positions
+      attempts++;
+      if (attempts % 2 === 1) {
+        // Try moving horizontally
+        bubbleX += offsetStep * Math.sign(speaker.x - CANVAS_WIDTH / 2);
+        bubbleX = Math.max(10, Math.min(CANVAS_WIDTH - bubbleWidth - 10, bubbleX));
+      } else {
+        // Try moving vertically
+        bubbleY += offsetStep;
+        if (bubbleY + bubbleHeight > CANVAS_HEIGHT - 10) {
+          bubbleY = speaker.y - bubbleHeight - 20 - offsetStep * attempts;
+          bubbleY = Math.max(10, bubbleY);
+        }
+      }
+    }
+
+    return { bubbleX, bubbleY };
   };
 
   const removeCharacter = (id: string) => {
@@ -140,7 +263,8 @@ export default function Arena() {
           const newMessage = {
             speaker: speaker.mbtiType,
             content: data.response,
-            turn: turn
+            turn: turn,
+            displayedContent: ''
           };
           
           conversation.messages.push(newMessage);
@@ -151,6 +275,11 @@ export default function Arena() {
             conv.character2.id === conversation.character2.id ? 
             { ...conv, messages: [...conversation.messages], currentTurn: turn + 1 } : conv
           ));
+
+          // Start streaming text effect
+          const conversationId = `${conversation.character1.id}-${conversation.character2.id}`;
+          const messageIndex = conversation.messages.length - 1;
+          startStreamingText(conversationId, messageIndex, data.response);
 
           // Wait before next turn
           await new Promise(resolve => setTimeout(resolve, CONVERSATION_TURN_DURATION));
@@ -391,16 +520,38 @@ export default function Arena() {
 
                 const char1 = conversation.character1;
                 const char2 = conversation.character2;
-                const midX = (char1.x + char2.x) / 2;
-                const midY = (char1.y + char2.y) / 2 - 80;
+                const currentConvId = `${char1.id}-${char2.id}`;
+                
+                // Determine speaker character
+                const speaker = lastMessage.speaker === char1.mbtiType ? char1 : char2;
+                
+                // Calculate bubble position with collision avoidance
+                const { bubbleX, bubbleY } = calculateBubblePosition(speaker, conversations, currentConvId);
+                const bubbleWidth = 280;
 
                 return (
                   <div
                     key={`${char1.id}-${char2.id}`}
-                    className="absolute z-30 max-w-xs"
-                    style={{ left: Math.max(0, Math.min(CANVAS_WIDTH - 300, midX - 150)), top: Math.max(0, midY) }}
+                    className="absolute z-30"
+                    style={{ 
+                      left: bubbleX, 
+                      bottom: CANVAS_HEIGHT - bubbleY,
+                      width: bubbleWidth,
+                      maxWidth: bubbleWidth
+                    }}
                   >
-                    <div className="bg-white/95 backdrop-blur-sm border border-white/30 rounded-xl p-3 shadow-lg">
+                    <div className="bg-white/95 backdrop-blur-sm border border-white/30 rounded-xl p-3 shadow-lg relative">
+                      {/* Speech bubble pointer */}
+                      <div 
+                        className="absolute w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white/95"
+                        style={{
+                          left: Math.max(8, Math.min(bubbleWidth - 16, speaker.x + CHARACTER_SIZE / 2 - bubbleX - 8)),
+                          bottom: bubbleY < speaker.y ? '-8px' : 'auto',
+                          top: bubbleY > speaker.y + CHARACTER_SIZE ? '-8px' : 'auto',
+                          transform: bubbleY > speaker.y + CHARACTER_SIZE ? 'rotate(180deg)' : 'none'
+                        }}
+                      />
+                      
                       <div className="flex items-center gap-2 mb-2">
                         <span className={`font-mono font-bold text-sm ${
                           getMbtiInfo(lastMessage.speaker)?.color
@@ -412,7 +563,7 @@ export default function Arena() {
                         </span>
                       </div>
                       <p className="text-sm text-gray-800 leading-relaxed">
-                        {lastMessage.content}
+                        {lastMessage.displayedContent || lastMessage.content}
                       </p>
                     </div>
                   </div>
