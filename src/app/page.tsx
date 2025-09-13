@@ -27,6 +27,9 @@ export default function Home() {
               <p className="text-gray-600 text-lg">
                 🎯 将您的表达方式智能转换为任何MBTI性格类型偏好的沟通语言
               </p>
+              <p className="text-gray-500 text-md mt-2">
+                讲话太难听？不知道如何和职场同事 / 社交朋友 / 亲密恋人沟通？用这个平台把对方钓成翘嘴！
+              </p>
             </div>
 
             <div className="pb-64">
